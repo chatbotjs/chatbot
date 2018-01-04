@@ -19,7 +19,7 @@ app.listen(PORT, function() {
 })
 
 app.get('/', (req, res) => {
-	res.sendFile('index.html')
+	res.sendFile(__dirname + '/index.html')
 	//res.send('hello world')
 });
 
