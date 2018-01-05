@@ -12,28 +12,51 @@ const bodyParser= require('body-parser')
 //for mongodb
 const MongoClient = require('mongodb').MongoClient
 
-//for websocket
+//for discordbot====================================================================
+const Discord = require("discord.js");
+const client = new Discord.Client();
+
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+
+client.on('message', msg => {
+  if (msg.content === 'ping') {
+    msg.reply('Pong!');
+  }
+});
+
+//use Heroku GUI or Heroku CLI to store the discord token on Heroku under any preferred name
+//e.g., discordToken
+client.login(process.env.discordToken);
+        
+//end discordbot====================================================================
+
+
+
+
+//for websocket=====================================================================
 const WebSocket = require('ws');
 
 const wss = new WebSocket('wss://kamadan.decltype.org/ws/notify');
 
 wss.on('open', function open() {
 	
-});
+})
 
 wss.on('message', function incoming(msg) {
-  msg = JSON.parse(msg); 
-  let tmp = new Date()
-  let csTime = new Date(tmp.getTime()+3600000*8)
-  let psTime = new Date(tmp.getTime()-3600000*8)
+	msg = JSON.parse(msg); 
+	let tmp = new Date()
+	let csTime = new Date(tmp.getTime()+3600000*8)
+	let psTime = new Date(tmp.getTime()-3600000*8)
   
-  console.log(psTime.toLocaleDateString('en-US')+" "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
+	console.log(psTime.toLocaleDateString('en-US')+" "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
   
-  console.log(csTime.toLocaleDateString('zh-CN')+" "+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
+	console.log(csTime.toLocaleDateString('zh-CN')+" "+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
   
-  console.log("sender: "+msg.name + " | message: "+msg.message);
-});
-
+	console.log("sender: "+msg.name + " | message: "+msg.message)
+})
+//end websocket======================================================================
 
  
 //use port given by heroku
@@ -58,7 +81,7 @@ MongoClient.connect(process.env.mlabURI, (err, database) => {
 
 	//only listen to web traffic after database is connected
 	app.listen(PORT, function() {
-		console.log("Listening on: "+PORT)
+		console.log(`Listening on ${ PORT }`)
 	})
 })
 
