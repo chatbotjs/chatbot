@@ -92,6 +92,7 @@ wss.on('message', function incoming(msg) {
 	
 	let embedAdCn = new Discord.RichEmbed()
 		.setColor(randomColor)
+		.setAuthor("\u200b")
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
@@ -99,6 +100,7 @@ wss.on('message', function incoming(msg) {
 		
 	let embedAdEn = new Discord.RichEmbed()
 		.setColor(randomColor)
+		.setAuthor("\u200b")
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
