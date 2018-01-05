@@ -132,10 +132,10 @@ function isEntryUnique(data) {
 		}
     }
 	if (recentAds.length < adLengthGuaranteedUnique){
-		recentAds.push(a)
+		recentAds.push(data)
 	} else {
 		recentAds.shift()
-		recentAds.push(a)
+		recentAds.push(data)
 	}
     return true
 }
