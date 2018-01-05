@@ -27,11 +27,11 @@ wss.on('message', function incoming(msg) {
   let csTime = new Date(tmp.getTime()+3600000*8)
   let psTime = new Date(tmp.getTime()-3600000*8)
   
-  console.log(psTime.toLocaleDateString('en-US'))
-  console.log(psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
-  console.log(csTime.toLocaleDateString('zh-CN'))
-  console.log(csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
-  console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msg.timestamp);
+  console.log(psTime.toLocaleDateString('en-US')+" "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
+  
+  console.log(csTime.toLocaleDateString('zh-CN')+" "+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
+  
+  console.log("sender: "+msg.name + " | message: "+msg.message);
 });
 
 
