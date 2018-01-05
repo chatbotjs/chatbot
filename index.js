@@ -106,8 +106,8 @@ wss.on('message', function incoming(msg) {
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
 	
-	client.channels.get(adChnl_Cn).send({embedAdCn})
-	client.channels.get(adChnl_En).send({embedAdEn})
+	client.channels.get(adChnl_Cn).send({ embedAdCn })
+	client.channels.get(adChnl_En).send({ embedAdEn })
 		
 })
 //end websocket======================================================================
