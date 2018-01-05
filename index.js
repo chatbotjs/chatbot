@@ -6,6 +6,11 @@
 
 //if starting from scratch: use npm init to initialize package.json
 
+//invite bot, visit: https://discordapp.com/oauth2/authorize?&client_id=<CLIENT ID>&scope=bot&permissions=0
+//where the current client id is: 398742652796928000
+const adLengthGuaranteedUnique = 25
+let recentAds = []
+
 const express = require('express')
 const bodyParser= require('body-parser')
 
@@ -50,6 +55,8 @@ client.on('message', msg => {
 	} else if (msg.content.match(/^!roleID\s/gi)) { //this block isn't realy needed
 		let roleName = msg.content.replace(/^!roleID\s/gi, '')
 		debugLog("ID for "+roleName+" is: "+msg.guild.roles.find("name", roleName).id)		
+	} else if (msg.content === '!showTally'){ //this block isn't realy needed
+		debugLog(recentAds)
 	}
 })
 
@@ -109,10 +116,29 @@ wss.on('message', function incoming(msg) {
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
 	
-	client.channels.get(adChnl_Cn).send(embedAdCn)
-	client.channels.get(adChnl_En).send(embedAdEn)
+	if (isEntryUnique(msg)){
+		client.channels.get(adChnl_Cn).send(embedAdCn)
+		client.channels.get(adChnl_En).send(embedAdEn)
+	}
 	
 })
+
+function isEntryUnique(data) {
+    
+    for (let i = 0; i < recentAds.length; i++) {
+        let records = recentAds[i];
+        if (data.name == records.name && data.message == records.message) {
+			return false
+		}
+    }
+	if (recentAds.length < adLengthGuaranteedUnique){
+		recentAds.push(a)
+	} else {
+		recentAds.shift()
+		recentAds.push(a)
+	}
+    return true
+}
 //end websocket======================================================================
  
 //use port given by heroku
