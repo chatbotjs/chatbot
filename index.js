@@ -16,7 +16,7 @@ const MongoClient = require('mongodb').MongoClient
 const WebSocket = require('ws');
 
 const wss = new WebSocket('wss://kamadan.decltype.org/ws/notify');
-
+console.log("output should begin below")
 wss.on('open', function open() {
 	console.log("this is now open")
   wss.send('something');
