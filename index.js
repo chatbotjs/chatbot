@@ -139,7 +139,7 @@ wss.on('message', function incoming(msg) {
 	
 	//client.channels.get(adChnl_Cn).send({ embedAdCn })
 	//client.channels.get(adChnl_En).send({ embedAdEn })
-	client.channels.get(adChnl_Cn).send({embedss})
+	client.channels.get(adChnl_Cn).send(embedss)
 		
 })
 //end websocket======================================================================
