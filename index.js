@@ -24,14 +24,13 @@ wss.on('open', function open() {
 wss.on('message', function incoming(msg) {
   msg = JSON.parse(msg); 
   let tmp = new Date()
-  let PST = tmp.getTime()-3600000*8
-  let CST = tmp.getTime()+3600000*8
-  let psTime = new Date(PST)
-  let csTime = new Date(CST)
+  let csTime = new Date(tmp.getTime()+3600000*8)
+  let psTime = new Date(tmp.getTime()-3600000*8)
+  
   console.log(psTime.toLocaleDateString('en-US'))
-  console.log(psTime)
+  console.log(psTime.toString())
   console.log(csTime.toLocaleDateString('zh-CN'))
-  console.log(csTime)
+  console.log(csTime.toString())
   console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msg.timestamp);
 });
 
