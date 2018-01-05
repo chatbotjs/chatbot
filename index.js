@@ -89,7 +89,7 @@ wss.on('message', function incoming(msg) {
 	let enTime = psTime.toLocaleDateString('en-US')+"*  | *"+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
 	
 	let randomColor = getRandomColor()
-	
+	console.log(msg.message)
 	let embedAdCn = new Discord.RichEmbed()
 		.setColor(randomColor)
 		.setAuthor(msg.name, null, 'https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
