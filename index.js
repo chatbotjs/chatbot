@@ -26,10 +26,12 @@ client.login(process.env.discordToken);
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)	
+	client.user.setStatus("idle") //invisible
+	client.user.setPresence({game: {name: "guildwars.huiji.wiki", type: 0}})
 });
 
 client.on("guildMemberAdd", (member) => {
-  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
+  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
   if (member.id=='191092281703399424'){
 	  if (!member.roles.find("name", "管理员")){
 		  member.addRole(member.guild.roles.find("name"), "管理员")
