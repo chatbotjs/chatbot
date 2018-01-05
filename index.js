@@ -21,8 +21,9 @@ wss.on('open', function open() {
   ws.send('something');
 });
 
-wss.on('message', function incoming(data) {
-  console.log(data);
+wss.on('message', function incoming(msg) {
+  msg = JSON.parse(msg); 
+  console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msg.timestamp);
 });
 
 
