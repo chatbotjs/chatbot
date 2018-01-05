@@ -24,8 +24,8 @@ wss.on('open', function open() {
 wss.on('message', function incoming(msg) {
   msg = JSON.parse(msg); 
   let tmp = new Date()
-  let PST = tmp.getTime()-3600000
-  let CST = tmp.getTime()+3600000
+  let PST = tmp.getTime()-3600000*8
+  let CST = tmp.getTime()+3600000*8
   let psTime = new Date(PST)
   let csTime = new Date(CST)
   console.log(psTime.toLocaleDateString('en-US'))
