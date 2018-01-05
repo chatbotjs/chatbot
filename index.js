@@ -84,27 +84,25 @@ wss.on('message', function incoming(msg) {
 	let csTime = new Date(tmp.getTime()+3600000*8)
 	let psTime = new Date(tmp.getTime()-3600000*8)
 	  
-	let cnTime = csTime.toLocaleDateString('zh-CN')+"  | "+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
+	let cnTime = "*"+csTime.toLocaleDateString('zh-CN')+"*  | *"+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")+"*"
 		
-	let enTime = psTime.toLocaleDateString('en-US')+"  | "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
+	let enTime = "*"+psTime.toLocaleDateString('en-US')+"*  | *"+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")+"*"
 	
 	let randomColor = getRandomColor()
 	
 	let embedAdCn = new Discord.RichEmbed()
-		.setColor(randomColor)
-		.setAuthor("\u200b")
+		.setColor(randomColor)		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
-		.addField(prettyPrintCn(msg.message),"\u200b")
+		.addField(prettyPrintCn(msg.message),"["+randomColor+"]"+"(http://www.google.com)")
 		
 	let embedAdEn = new Discord.RichEmbed()
-		.setColor(randomColor)
-		.setAuthor("\u200b")
+		.setColor(randomColor)		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message),"\u200b")
+		.addField(prettyPrintEn(msg.message),"["+randomColor+"]"+"(http://www.google.com)")
 		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
