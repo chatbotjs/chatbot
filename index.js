@@ -23,14 +23,16 @@ client.on('ready', () => {
 client.on('message', msg => {
   if (msg.content === 'ping') {
     msg.reply('Pong!');
+	client.channels.get('398750522569654272').send('Pong!');
   }
-});
+}); 
 
 //use Heroku GUI or Heroku CLI to store the discord token on Heroku under any preferred name
 //e.g., discordToken
 client.login(process.env.discordToken);
         
 //end discordbot====================================================================
+
 
 
 
