@@ -123,12 +123,14 @@ express()
 */
 
 function prettyPrintEn(data){
-	data=data.replace(/(^|[^A-Za-z])(WANT TO BUY)(?=[^A-Za-z]|$)/gi, '$1(**WTB**)');
-	data=data.replace(/^WTBUY|^WTB/gi, '(**WTB**)');
-	data=data.replace(/(^|[^A-Za-z])(BUYING|BUYIN|WYB|WW*?TBB*?|VVTB|ACHETE*?R*?S*?|BUY|W[^A-Za-z]*?T[^A-Za-z]*?B|WTV)(?=[^A-Za-z]|$)/gi, '$1(**WTB**)');
-    data=data.replace(/^WTSELL|^WTS/gi, '[**WTS**]');
-	data=data.replace(/(^|[^A-Za-z])(SELL*?I*?ING*?|WW*?TSS*?|WT\$|SELL|VENDR*?E*?|VVTS|W[^A-Za-z]*?T[^A-Za-z]*?S)(?=[^A-Za-z]|$)/gi, '$1[**WTS**]');    
-	data=data.replace(/(^|[^A-Za-z])(WANT TO SELL)(?=[^A-Za-z]|$)/gi, '$1[**WTS**]');    
+	data=data.replace(/(^|[^A-Za-z])(WANT TO BUY)(?=[^A-Za-z]|$)/gi, '$1(**买**)');
+	data=data.replace(/^WTBUY|^WTB/gi, '(**买**)');
+	data=data.replace(/(^|[^A-Za-z])(BUYING|BUYIN|WYB|WW*?TBB*?|VVTB|ACHETE*?R*?S*?|BUY|W[^A-Za-z]*?T[^A-Za-z]*?B|WTV)(?=[^A-Za-z]|$)/gi, '$1(**买**)');
+    data=data.replace(/^WTSELL|^WTS/gi, '[**卖**]');
+	data=data.replace(/(^|[^A-Za-z])(SELL*?I*?ING*?|WW*?TSS*?|WT\$|SELL|VENDR*?E*?|VVTS|W[^A-Za-z]*?T[^A-Za-z]*?S)(?=[^A-Za-z]|$)/gi, '$1[**卖**]');    
+	data=data.replace(/(^|[^A-Za-z])(WANT TO SELL)(?=[^A-Za-z]|$)/gi, '$1[**卖**]');    
+	data=data.replace(/\[\*\*买\*\*\]/gi, '[**WTB**]')
+	data=data.replace(/\[\*\*卖\*\*\]/gi, '[**WTS**]')
 	return data
 }
 
