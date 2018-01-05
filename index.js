@@ -23,6 +23,7 @@ wss.on('open', function open() {
 });
 
 wss.on('message', function incoming(msg) {
+	console.log("i've receivd something")
   msg = JSON.parse(msg); 
   console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msg.timestamp);
 });
