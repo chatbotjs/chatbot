@@ -30,7 +30,7 @@ wss.on('message', function incoming(msg) {
   let csTime = new Date(CST)
   console.log(psTime.toLocaleDateString('en-US'))
   console.log(csTime.toLocaleDateString('zh-CN'))
-  console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msgTime);
+  console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msg.timestamp);
 });
 
 
