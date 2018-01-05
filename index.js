@@ -27,7 +27,7 @@ client.login(process.env.discordToken);
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)	
 	//client.user.setStatus("idle") //invisible
-	client.user.setPresence({status: "idle", game: {name: "guildwars.huiji.wiki", type: 0}})
+	client.user.setPresence({status: "idle", game: {name: "guildwars.huiji.wiki", url: "https://guildwars.huiji.wiki"}})
 });
 
 client.on("guildMemberAdd", (member) => {
