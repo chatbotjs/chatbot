@@ -177,8 +177,8 @@ function prettyPrintEn(data){
     data=data.replace(/^WTSELL|^WTS/gi, '[**卖**]');
 	data=data.replace(/(^|[^A-Za-z])(SELL*?I*?ING*?|WW*?TSS*?|WT\$|SELL|VENDR*?E*?|VVTS|W[^A-Za-z]*?T[^A-Za-z]*?S)(?=[^A-Za-z]|$)/gi, '$1[**卖**]');    
 	data=data.replace(/(^|[^A-Za-z])(WANT TO SELL)(?=[^A-Za-z]|$)/gi, '$1[**卖**]');    
-	data=data.replace(/\(\*\*买\*\*\)/gi, '(__WTB__)')
-	data=data.replace(/\[\*\*卖\*\*\]/gi, '[__WTS__]')
+	data=data.replace(/\(\*\*买\*\*\)/gi, '__WTB__')
+	data=data.replace(/\[\*\*卖\*\*\]/gi, '__WTS__')
 	return data
 }
 
@@ -234,8 +234,8 @@ function prettyPrintCn(data){
 	data=data.replace(/(^|[^A-Za-z])(STONE\s*?RAINS*?)(?=[^A-Za-z]|$)/gi, '$1石之雨');
 	data=data.replace(/(^|[^A-Za-z])(POLYMOC*K*S*?(?: PIECES*)?)(?=[^A-Za-z]|$)/gi, '$1战斗仿棋');
 	data=data.replace(/(^|[^A-Za-z])(MASTER OF WH*?I*?SPE*?R*?S*?)(?=[^A-Za-z]|$)/gi, '$1唤言大师');
-    data=data.replace(/^WTBUY|^WTB/gi, '(__买__)');
-    data=data.replace(/^WTSELL|^WTS/gi, '[__卖__]');
+    data=data.replace(/^WTBUY|^WTB/gi, '(__=买=__)');
+    data=data.replace(/^WTSELL|^WTS/gi, '[__=卖=__]');
 
 	data=data.replace(/(^|[^A-Za-z])(PRIMEVAL(?: ARO*?MOU*?R)*? REMN*?A*?N*?T*?S*?)(?=[^A-Za-z]|$)/gi, '$1太古防具零料');
 	data=data.replace(/(^|[^A-Za-z])(DELDRIMORE*?(?: ARO*?MOU*?R)*? REMN*?A*?N*?T*?S*?)(?=[^A-Za-z]|$)/gi, '$1戴尔狄摩防具零料');
@@ -496,8 +496,8 @@ function prettyPrintCn(data){
     data=data.replace(/(^|[^A-Za-z])(VS*?\.*?\s?PI*?EI*?RC*?S*I*N*G*(?: DA*?MA*?GE*?S*?)?)(?=[^A-Za-z]|$)/gi, '$1(对穿刺)');
 
     data=data.replace(/(^|[^A-Za-z])((?:OS|OLDS*?CHOO*?L|OLD SCHOO*?L|OLD SKOO*?L|OLDSKOO*?L)\s*?(?:RS|RUNESCAPES*?))(?=[^A-Za-z]|$)/gi, '$1原版 江湖');
-    data=data.replace(/(^|[^A-Za-z])(WANT TO SELL)(?=[^A-Za-z]|$)/gi, '$1[__卖__]');
-    data=data.replace(/(^|[^A-Za-z])(WANT TO BUY)(?=[^A-Za-z]|$)/gi, '$1(__买__)');
+    data=data.replace(/(^|[^A-Za-z])(WANT TO SELL)(?=[^A-Za-z]|$)/gi, '$1[__=卖=__]');
+    data=data.replace(/(^|[^A-Za-z])(WANT TO BUY)(?=[^A-Za-z]|$)/gi, '$1(__=买=__)');
 
     //1a. 铸印
     data=data.replace(/(^|[^A-Za-z])(STR\&HON)(?=[^A-Za-z]|$)/gi, '$1"力与荣耀"'); //无法对上str&hon，原因不明
@@ -563,8 +563,8 @@ function prettyPrintCn(data){
     data=data.replace(/(^|[^A-Za-z])(SHOW ME THE MONEY)(?=[^A-Za-z]|$)/gi, '$1"给我钱"');
 
     //2. 卖买
-    data=data.replace(/(^|[^A-Za-z])(SELL*?I*?ING*?|WW*?TSS*?|WT\$|SELL|VENDR*?E*?|VVTS|W[^A-Za-z]*?T[^A-Za-z]*?S)(?=[^A-Za-z]|$)/gi, '$1[__卖__]');
-    data=data.replace(/(^|[^A-Za-z])(BUYING|BUYIN|WYB|WW*?TBB*?|VVTB|ACHETE*?R*?S*?|BUY|W[^A-Za-z]*?T[^A-Za-z]*?B|WTV)(?=[^A-Za-z]|$)/gi, '$1(__买__)');	    
+    data=data.replace(/(^|[^A-Za-z])(SELL*?I*?ING*?|WW*?TSS*?|WT\$|SELL|VENDR*?E*?|VVTS|W[^A-Za-z]*?T[^A-Za-z]*?S)(?=[^A-Za-z]|$)/gi, '$1[__=卖=__]');
+    data=data.replace(/(^|[^A-Za-z])(BUYING|BUYIN|WYB|WW*?TBB*?|VVTB|ACHETE*?R*?S*?|BUY|W[^A-Za-z]*?T[^A-Za-z]*?B|WTV)(?=[^A-Za-z]|$)/gi, '$1(__=买=__)');	    
     data=data.replace(/(^|[^A-Za-z])(WTT|W[^A-Za-z]*?T\[^A-Za-z]*?T|TRADE*?S*?|TRADING)(?=[^A-Za-z]|$)/gi, '$1交易');
     data=data.replace(/(^|[^A-Za-z])(LF|LOOKING*? FOR)(?=[^A-Za-z]|$)/gi, '$1找');
 
