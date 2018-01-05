@@ -55,12 +55,12 @@ wss.on('message', function incoming(msg) {
 	let csTime = new Date(tmp.getTime()+3600000*8)
 	let psTime = new Date(tmp.getTime()-3600000*8)
 	  
-	let cnTime = csTime.toLocaleDateString('zh-CN')+" | "+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
+	let cnTime = csTime.toLocaleDateString('zh-CN')+"* | *"+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
 		
-	let enTime = psTime.toLocaleDateString('en-US')+" | "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
+	let enTime = psTime.toLocaleDateString('en-US')+"* | *"+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
 	  		
-	client.channels.get(adChnl_Cn).send("[__**"+msg.name+"**__]\n*"+cnTime+"*\n"+prettyPrintCn(msg.message))
-	client.channels.get(adChnl_En).send("[__**"+msg.name+"**__]\n*"+enTime+"*\n"+prettyPrintEn(msg.message))
+	client.channels.get(adChnl_Cn).send("[__**"+msg.name+"**__]\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)+"\n")
+	client.channels.get(adChnl_En).send("[__**"+msg.name+"**__]\n*"+enTime+"*\n"+prettyPrintEn(msg.message)+"\n")
 		
 })
 //end websocket======================================================================
