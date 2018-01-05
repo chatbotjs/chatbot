@@ -18,7 +18,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket('wss://kamadan.decltype.org/ws/notify');
 
 wss.on('open', function open() {
-  ws.send('something');
+  wss.send('something');
 });
 
 wss.on('message', function incoming(msg) {
