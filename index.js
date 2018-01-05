@@ -93,16 +93,14 @@ wss.on('message', function incoming(msg) {
 	let embedAdCn = new Discord.RichEmbed()
 		.setColor(randomColor)
 		.setAuthor(msg.name, null, 'https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
-		.setDescription(prettyPrintCn(msg.message))
-		.addBlankField(true)
+		.setDescription(prettyPrintCn(msg.message))		
 		.setFooter(cnTime)
 		
 		
 	let embedAdEn = new Discord.RichEmbed()
 		.setColor(randomColor)
 		.setAuthor(msg.name, null, 'https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
-		.setDescription(prettyPrintEn(msg.message))
-		.addBlankField(true)
+		.setDescription(prettyPrintEn(msg.message))		
 		.setFooter(enTime)				
 	
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
