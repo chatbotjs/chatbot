@@ -89,7 +89,7 @@ wss.on('message', function incoming(msg) {
 	let enTime = psTime.toLocaleDateString('en-US')+"*  | *"+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
 	
 	let randomColor = getRandomColor()
-	console.log(msg.message)
+	
 	let embedAdCn = new Discord.RichEmbed()
 		.setColor(randomColor)
 		.setAuthor(msg.name, null, 'https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
@@ -105,42 +105,12 @@ wss.on('message', function incoming(msg) {
 		.addBlankField(true)
 		.setFooter(enTime)				
 	
-	let embedss = new Discord.RichEmbed()
-  .setTitle("This is your title, it can hold 256 characters")
-  .setAuthor("Author Name", "https://i.imgur.com/lm8s41J.png")
-  /*
-   * Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-   */
-  .setColor(0x00AE86)
-  .setDescription("This is the main body of text, it can hold 2048 characters.")
-  .setFooter("This is the footer text, it can hold 2048 characters", "http://i.imgur.com/w1vhFSR.png")
-  .setImage("http://i.imgur.com/yVpymuV.png")
-  .setThumbnail("http://i.imgur.com/p2qNFag.png")
-  /*
-   * Takes a Date object, defaults to current date.
-   */
-  .setTimestamp()
-  .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
-  .addField("This is a field title, it can hold 256 characters",
-    "This is a field value, it can hold 2048 characters.")
-  /*
-   * Inline fields may not display as inline if the thumbnail and/or image is too big.
-   */
-  .addField("Inline Field", "They can also be inline.", true)
-  /*
-   * Blank field, useful to create some space.
-   */
-  .addBlankField(true)
-  .addField("Inline Field 3", "You can have a maximum of 25 fields.", true);
-
-
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
 	
-	//client.channels.get(adChnl_Cn).send({ embedAdCn })
-	//client.channels.get(adChnl_En).send({ embedAdEn })
-	client.channels.get(adChnl_Cn).send(embedss)
-		
+	client.channels.get(adChnl_Cn).send(embedAdCn)
+	client.channels.get(adChnl_En).send(embedAdEn)
+	
 })
 //end websocket======================================================================
  
