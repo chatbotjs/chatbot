@@ -23,14 +23,13 @@ const adChnl_En = '398750484870987777'
 client.login(process.env.discordToken);
 
 client.on('ready', () => {
-	console.log(`Logged in as ${client.user.tag}!`);  
-	console.log(client.status)
+	console.log(`Logged in as ${client.user.tag}!`)	
 });
 
 client.on('message', msg => {
 	/*
 	if (msg.content === 'ping') {
-		msg.reply('Pong!');	
+		msg.reply('Pong!')
 	}
 	*/
 }); 
@@ -60,9 +59,8 @@ wss.on('message', function incoming(msg) {
 		
 	let enTime = psTime.toLocaleDateString('en-US')+" "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
 	  		
-		
-	client.channels.get(adChnl_Cn).send(cnTime+" "+msg.name+": "+msg.message)
-	client.channels.get(adChnl_En).send(enTime+" "+msg.name+": "+msg.message)
+	client.channels.get(adChnl_Cn).send("[__**"+msg.name+"**__]\n*"+cnTime+"*\n"+msg.message)
+	client.channels.get(adChnl_En).send("[__**"+msg.name+"**__]\n*"+enTime+"*\n"+msg.message)
 		
 })
 //end websocket======================================================================
