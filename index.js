@@ -15,8 +15,10 @@ const MongoClient = require('mongodb').MongoClient
 //for discordbot====================================================================
 const Discord = require("discord.js");
 const client = new Discord.Client();
+
 const adChnl_Cn = '398750522569654272'
 const adChnl_En = '398750484870987777'
+const debugChnl = '398900001805434881'
 
 //use Heroku GUI or Heroku CLI to store the discord token on Heroku under any preferred name
 //e.g., discordToken
@@ -26,14 +28,41 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)	
 });
 
-client.on('message', msg => {
-	/*
-	if (msg.content === 'ping') {
-		msg.reply('Pong!')
+client.on("guildMemberAdd", (member) => {
+  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
+  if (member.id=='191092281703399424'){
+	  if (!member.roles.find("name", "管理员")){
+		  member.addRole(member.guild.roles.find("name"), "管理员")
+		  debugLog("tried to add 管理员 to: "+member.nickname+" ("+member.id+")")
+	  }
+	  if (!member.roles.find("name", "外文")){
+		  member.addRole(member.guild.roles.find("name"), "外文")
+		  debugLog("tried to add 外文 to: "+member.nickname+" ("+member.id+")")
+	  }
+  }
+});
+
+client.on('message', msg => {	
+	if (msg.content === '!delete' && msg.author.id == "190958302744543232") {
+		msg.channel.bulkDelete(100)
+	} else if (msg.content.match(/^!roleID\s/gi)) { //this block isn't realy needed
+		let roleName = msg.content.replace(/^!roleID\s/gi, '')
+		debugLog("ID for "+roleName+" is: "+msg.guild.roles.find("name", roleName).id)		
 	}
-	*/
-}); 
-        
+})
+
+function debugLog(msg){
+	client.channels.get(debugChnl).send(msg)
+}
+
+function getRandomColor() {
+  let letters = '0123456789ABCDEF';  
+  let result = '';
+  for (let i = 0; i < 6; i++) {
+    result += letters.charAt(Math.floor(Math.random() * 16));
+  }
+  return "0x"+result;
+}
 //end discordbot====================================================================
 
 
@@ -55,12 +84,30 @@ wss.on('message', function incoming(msg) {
 	let csTime = new Date(tmp.getTime()+3600000*8)
 	let psTime = new Date(tmp.getTime()-3600000*8)
 	  
-	let cnTime = csTime.toLocaleDateString('zh-CN')+"*   | *"+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
+	let cnTime = csTime.toLocaleDateString('zh-CN')+"*  | *"+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
 		
-	let enTime = psTime.toLocaleDateString('en-US')+"*   | *"+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
-	  		
-	client.channels.get(adChnl_Cn).send("__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)+"\n\n")
-	client.channels.get(adChnl_En).send("__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)+"\n\n")
+	let enTime = psTime.toLocaleDateString('en-US')+"*  | *"+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")
+	
+	let randomColor = getRandomColor()
+	
+	let embedAdCn = new Discord.RichEmbed()
+		.setColor(randomColor)
+		.setAuthor(msg.name, null, 'https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
+		.setDescription(prettyPrintCn(msg.message))
+		.setFooter(cnTime)
+		
+		
+	let embedAdEn = new Discord.RichEmbed()
+		.setColor(randomColor)
+		.setAuthor(msg.name, null, 'https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
+		.setDescription(prettyPrintEn(msg.message))
+		.setFooter(enTime)				
+		
+	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
+	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
+	
+	client.channels.get(adChnl_Cn).send({embedAdCn})
+	client.channels.get(adChnl_En).send({embedAdEn})
 		
 })
 //end websocket======================================================================
