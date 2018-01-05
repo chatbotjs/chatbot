@@ -28,9 +28,9 @@ wss.on('message', function incoming(msg) {
   let psTime = new Date(tmp.getTime()-3600000*8)
   
   console.log(psTime.toLocaleDateString('en-US'))
-  console.log(psTime.toString())
+  console.log(psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
   console.log(csTime.toLocaleDateString('zh-CN'))
-  console.log(csTime.toString())
+  console.log(csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1"))
   console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msg.timestamp);
 });
 
