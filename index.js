@@ -1,28 +1,67 @@
+//heroku apps requires a Procfile file in order to run
+//its content can be: "web: node index.js"
+
+//best to creat a .gitignore file that ignores node_modules; 
+//this way, local copies will not interfere with those that will be generated on herkou
+
+//if starting from scratch: use npm init to initialize package.json
+
 const express = require('express')
 const bodyParser= require('body-parser')
-const PORT = process.env.PORT || 5000
 
+//for mongodb
 const MongoClient = require('mongodb').MongoClient
 
-/*
-MongoClient.connect('link-to-mongodb', (err, database) => {
-  // ... start the server
-})
-*/
+//for websocket
+const WebSocketServer = require('uws').Server;
+const wss = new WebSocketServer('wss://kamadan.decltype.org/ws/notify');
+ 
+function onMessage(message) {
+    console.log('received: ' + message);
+}
+ 
+wss.on('connection', function(ws) {
+    ws.on('message', onMessage);
+    ws.send('something');
+});
+
+//use port given by heroku
+const PORT = process.env.PORT || 5000
 
 const app = express()
 
+//expand the functionalities of express
+//to process items such as form input
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.listen(PORT, function() {
-  console.log("Listening on: "+PORT)
+//Don't install mlab through heroku addon; that process requires credit cards
+//Instead, visit mlab.com to create a free/sandbox database there 
+//After a database is created, create a user under its "users" tab
+//Record the database URI in some heroku environment variable, either by using the heroku GUI or heroku CLI:
+//For CLI, the command is: 
+//heroku config:set mlabURI=mongodb://<dbuser>:<dbpassword>@ds147872.mlab.com:47872/chatbotjs -a chatbotjs (or other appname)
+//can use any other name besides mlabURI to store the URI
+MongoClient.connect(process.env.mlabURI, (err, database) => {
+	if (err) return console.log(err)
+	db = database
+
+	//only listen to web traffic after database is connected
+	app.listen(PORT, function() {
+		console.log("Listening on: "+PORT)
+	})
 })
 
+//regular page visits to specified paths, here '/' indicates "home page"
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html')
-	//res.send('hello world')
+	//requires the actual path to where this project resides ("root directory")
+	//else node won't be able to resolve the relative path to index.html
+	//b/c relative paths are relative to this directory
+	res.sendFile(__dirname + '/index.html')	
 });
 
+//form posts to "/quotes", 
+//data sent from form elements with an "action" attribute matching "/quotes" will be handled here
+//requires the bodyParser middleware to function (loaded above)
 app.post('/quotes', (req, res) => {
   console.log(req.body)
 })
