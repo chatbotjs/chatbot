@@ -91,18 +91,18 @@ wss.on('message', function incoming(msg) {
 	let randomColor = getRandomColor()
 	
 	let embedAdCn = new Discord.RichEmbed()
-		.setColor(0)		
+		.setColor(0) //.setAuthor("Author Name", null, "https://")		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
-		.addField(prettyPrintCn(msg.message),"-")
+		.addField(prettyPrintCn(msg.message),".")
 		
 	let embedAdEn = new Discord.RichEmbed()
-		.setColor(0)		
+		.setColor(0) //.setAuthor("Author Name", null, "https://")		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message),"\u200b")
+		.addField(prettyPrintEn(msg.message),".")
 		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
