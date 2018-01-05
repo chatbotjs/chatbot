@@ -56,7 +56,11 @@ client.on('message', msg => {
 		let roleName = msg.content.replace(/^!roleID\s/gi, '')
 		debugLog("ID for "+roleName+" is: "+msg.guild.roles.find("name", roleName).id)		
 	} else if (msg.content === '!showTally'){ //this block isn't realy needed
-		debugLog(recentAds)
+		let output = ""
+		for (let i = 0; i<recentAds.length;i++){
+			output = recentAds[i].name + ": "+ recentAds[i].message+"\n"
+		}
+		debugLog(output)
 	}
 })
 
