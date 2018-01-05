@@ -13,18 +13,20 @@ const bodyParser= require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 
 //for websocket
-const WebSocketServer = require('uws').Server;
-const wss = new WebSocketServer('wss://kamadan.decltype.org/ws/notify');
- 
-function onMessage(message) {
-    console.log('received: ' + message);
-}
- 
-wss.on('connection', function(ws) {
-    ws.on('message', onMessage);
-    ws.send('something');
+const WebSocket = require('ws');
+
+const wss = new WebSocket('wss://kamadan.decltype.org/ws/notify');
+
+wss.on('open', function open() {
+  ws.send('something');
 });
 
+wss.on('message', function incoming(data) {
+  console.log(data);
+});
+
+
+ 
 //use port given by heroku
 const PORT = process.env.PORT || 5000
 
