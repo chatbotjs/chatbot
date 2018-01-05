@@ -102,7 +102,7 @@ wss.on('message', function incoming(msg) {
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message)+"["+randomColor+"]"+"(http://www.google.com)",randomColor")
+		.addField(prettyPrintEn(msg.message)+"["+randomColor+"]"+"(http://www.google.com)",randomColor)
 		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
