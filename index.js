@@ -95,14 +95,14 @@ wss.on('message', function incoming(msg) {
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
-		.addField(prettyPrintCn(msg.message),"["+randomColor+"]"+"(http://www.google.com)")
+		.addField(prettyPrintCn(msg.message),randomColor)
 		
 	let embedAdEn = new Discord.RichEmbed()
 		.setColor(randomColor)		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message),"["+randomColor+"]"+"(http://www.google.com)")
+		.addField(prettyPrintEn(msg.message)+"["+randomColor+"]"+"(http://www.google.com)",randomColor")
 		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
@@ -177,8 +177,8 @@ function prettyPrintEn(data){
     data=data.replace(/^WTSELL|^WTS/gi, '[**卖**]');
 	data=data.replace(/(^|[^A-Za-z])(SELL*?I*?ING*?|WW*?TSS*?|WT\$|SELL|VENDR*?E*?|VVTS|W[^A-Za-z]*?T[^A-Za-z]*?S)(?=[^A-Za-z]|$)/gi, '$1[**卖**]');    
 	data=data.replace(/(^|[^A-Za-z])(WANT TO SELL)(?=[^A-Za-z]|$)/gi, '$1[**卖**]');    
-	data=data.replace(/\(\*\*买\*\*\)/gi, '(WTB)')
-	data=data.replace(/\[\*\*卖\*\*\]/gi, '[WTS]')
+	data=data.replace(/\(\*\*买\*\*\)/gi, '(**WTB**)')
+	data=data.replace(/\[\*\*卖\*\*\]/gi, '[**WTS**]')
 	return data
 }
 
