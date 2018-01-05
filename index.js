@@ -89,20 +89,20 @@ wss.on('message', function incoming(msg) {
 	let enTime = "*"+psTime.toLocaleDateString('en-US')+"*  | *"+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")+"*"
 	
 	let randomColor = getRandomColor()
-	console.log(msg.message)
+	
 	let embedAdCn = new Discord.RichEmbed()
 		.setColor(0)		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
-		.addField(prettyPrintCn(msg.message),randomColor)
+		.addField(prettyPrintCn(msg.message),"-")
 		
 	let embedAdEn = new Discord.RichEmbed()
 		.setColor(0)		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message),randomColor)
+		.addField(prettyPrintEn(msg.message),"\u200b")
 		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
