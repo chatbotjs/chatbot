@@ -100,8 +100,8 @@ wss.on('message', function incoming(msg) {
 		.setColor(randomColor)
 		.setAuthor(msg.name, null, 'https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message),"\u200b")				
-	  
+		.addField(prettyPrintEn(msg.message),"\u200b")
+		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
 	
