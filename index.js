@@ -23,7 +23,8 @@ wss.on('open', function open() {
 
 wss.on('message', function incoming(msg) {
   msg = JSON.parse(msg); 
-  console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msg.timestamp);
+  let msgTime = new Date(msg.timestamp-3600000)
+  console.log("sender: "+msg.name + " | message: "+msg.message + " | timestamp: "+msgTime);
 });
 
 
