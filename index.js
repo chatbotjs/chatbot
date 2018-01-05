@@ -62,7 +62,7 @@ wss.on('message', function incoming(msg) {
 	  		
 		
 	client.channels.get(adChnl_Cn).send(cnTime+" "+msg.name+": "+msg.message)
-	client.channels.get(adChnl_En).send(enTime+" "+msg.name+": "+msg.message")
+	client.channels.get(adChnl_En).send(enTime+" "+msg.name+": "+msg.message)
 		
 })
 //end websocket======================================================================
