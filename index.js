@@ -142,8 +142,7 @@ function isEntryUnique(data) {
 
 function isRecent(ad){
 	let timeNow = new Date()
-    let adTime = new Date(ad.receivedOn) 
-	console.log(timeNow-adTime)
+    let adTime = new Date(ad.receivedOn) 	
 	return ((timeNow-adTime) > mutePeriod) ? false : true 
 }
 //end websocket======================================================================
