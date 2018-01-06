@@ -58,7 +58,7 @@ client.on('message', msg => {
 	} else if (msg.content === '!showTally'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
-			output += "["+i+"] [**"+recentAds[i].name + "**] :: "+ recentAds[i].message+" || "+recentAds[i].receivedOn+"\n"
+			output += "["+i+"] [**"+recentAds[i].name + "**] :: "+ recentAds[i].message.substring(0,8)+" || "+recentAds[i].receivedOn+"\n"
 		}
 		debugLog(output)
 	}
