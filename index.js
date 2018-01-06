@@ -8,7 +8,7 @@
 
 //invite bot, visit: https://discordapp.com/oauth2/authorize?&client_id=<CLIENT ID>&scope=bot&permissions=0
 //where the current client id is: 398742652796928000
-const adLengthGuaranteedUnique = 25
+const mutePeriod = 5*60*1000
 let recentAds = []
 
 const express = require('express')
@@ -58,7 +58,7 @@ client.on('message', msg => {
 	} else if (msg.content === '!showTally'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
-			output += "["+i+"] "+recentAds[i].name + ": "+ recentAds[i].message+"\n"
+			output += "["+i+"] "+recentAds[i].name + ": "+ recentAds[i].message+" || "+recentAds[i].receivedOn+"\n"
 		}
 		debugLog(output)
 	}
@@ -108,14 +108,14 @@ wss.on('message', function incoming(msg) {
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
-		.addField(prettyPrintCn(msg.message),"[.](https://kamadan.decltype.org)")
+		.addField(prettyPrintCn(msg.message),"[+](https://kamadan.decltype.org)")
 		
 	let embedAdEn = new Discord.RichEmbed()
 		.setColor(0) //.setAuthor("Author Name", null, "https://")		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message),"[.](https://kamadan.decltype.org)")
+		.addField(prettyPrintEn(msg.message),"[-](https://kamadan.decltype.org)")
 		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
@@ -128,20 +128,23 @@ wss.on('message', function incoming(msg) {
 })
 
 function isEntryUnique(data) {
-    
+    recentAds = recentAds.filter(isRecent)
     for (let i = 0; i < recentAds.length; i++) {
         let records = recentAds[i];
         if (data.name == records.name && data.message == records.message) {
 			return false
 		}
-    }
-	if (recentAds.length < adLengthGuaranteedUnique){
-		recentAds.push(data)
-	} else {
-		recentAds.shift()
-		recentAds.push(data)
-	}
+    }	
+	data.receivedOn = (new Date()).getTime()
+	recentAds.push(data)
     return true
+}
+
+function isRecent(ad){
+	let timeNow = new Date()
+    let adTime = new Date(ad.receivedOn) 
+	console.log(timeNow-adTime)
+	return ((timeNow-adTime) > mutePeriod) ? false : true 
 }
 //end websocket======================================================================
  
