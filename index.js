@@ -108,14 +108,14 @@ wss.on('message', function incoming(msg) {
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
-		.addField(prettyPrintCn(msg.message),"[►](https://kamadan.decltype.org)")
+		.addField(prettyPrintCn(msg.message),"[➻](https://kamadan.decltype.org)")
 		
 	let embedAdEn = new Discord.RichEmbed()
 		.setColor(0) //.setAuthor("Author Name", null, "https://")		
 		.setTitle(msg.name)
 		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(enTime)
-		.addField(prettyPrintEn(msg.message),"[►](https://kamadan.decltype.org)")
+		.addField(prettyPrintEn(msg.message),"[➻](https://kamadan.decltype.org)")
 		
 	//"__**"+msg.name+"**__\n*"+cnTime+"*\n"+prettyPrintCn(msg.message)
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
