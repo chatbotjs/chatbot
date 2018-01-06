@@ -8,7 +8,8 @@
 
 //invite bot, visit: https://discordapp.com/oauth2/authorize?&client_id=<CLIENT ID>&scope=bot&permissions=0
 //where the current client id is: 398742652796928000
-const mutePeriod = 5*60*1000
+
+const mutePeriod = 10*60*1000
 let recentAds = []
 
 const express = require('express')
