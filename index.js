@@ -59,14 +59,14 @@ client.on('message', msg => {
 	} else if (msg.content === '!showTally'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
-			output +=  recentAds[i].name + "\n"
+			output += recentAds[i].name + "\n"
 		}
 		debugLog(output)
 	}
 })
 
 function debugLog(msg){
-	client.channels.get(debugChnl).send(msg)
+	client.channels.get(debugChnl).send(msg).catch(console.error)
 }
 
 function getRandomColor() {
@@ -122,8 +122,8 @@ wss.on('message', function incoming(msg) {
 	//"__**"+msg.name+"**__\n*"+enTime+"*\n"+prettyPrintEn(msg.message)
 	
 	if (isEntryUnique(msg)){
-		client.channels.get(adChnl_Cn).send(embedAdCn)
-		client.channels.get(adChnl_En).send(embedAdEn)
+		client.channels.get(adChnl_Cn).send(embedAdCn).catch(console.error)
+		client.channels.get(adChnl_En).send(embedAdEn).catch(console.error)
 	}
 	
 })
