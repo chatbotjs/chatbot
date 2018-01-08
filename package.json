@@ -23,7 +23,9 @@
     "express": "^4.16.2",
     "mongodb": "^3.0.1",
     "node-opus": "^0.2.7",
-    "ws": "^3.3.3"
+    "ws": "^3.3.3",
+    "youtube-dl": "^1.12.2",
+    "ytdl-core": "^0.18.5"
   },
   "devDependencies": {
     "nodemon": "^1.14.7"
