@@ -12,6 +12,8 @@
 const mutePeriod = 10*60*1000
 let recentAds = []
 
+const music = require('music.js')
+
 const express = require('express')
 const bodyParser= require('body-parser')
 
@@ -34,7 +36,15 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)	
 	client.user.setStatus("invisible")
 	client.user.setPresence({game: {name: "guildwars.huiji.wiki", type:0}})
-});
+	
+	music(client, {
+		prefix: '-',        // Prefix of '-'.
+		global: false,      // Server-specific queues.
+		maxQueueSize: 10,   // Maximum queue size of 10.
+		clearInvoker: true, // If permissions applicable, allow the bot to delete the messages that invoke it (start with prefix)
+		//channel: 'music'    // Name of voice channel to join. If omitted, will instead join user's voice channel.
+	})
+})
 
 client.on("guildMemberAdd", (member) => {
   console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
