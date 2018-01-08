@@ -40,11 +40,11 @@ client.on("guildMemberAdd", (member) => {
   console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
   if (member.id=='191092281703399424'){
 	  if (!member.roles.find("name", "管理员")){
-		  member.addRole(member.guild.roles.find("name"), "管理员")
+		  member.addRole(member.guild.roles.find("name", "管理员"))
 		  debugLog("tried to add 管理员 to: "+member.nickname+" ("+member.id+")")
 	  }
 	  if (!member.roles.find("name", "外文")){
-		  member.addRole(member.guild.roles.find("name"), "外文")
+		  member.addRole(member.guild.roles.find("name", "外文"))
 		  debugLog("tried to add 外文 to: "+member.nickname+" ("+member.id+")")
 	  }
   }
