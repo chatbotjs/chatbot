@@ -33,9 +33,9 @@ const debugChnl = '398900001805434881'
 client.login(process.env.discordToken);
 
 client.on('ready', () => {
-	console.log(`Logged in as ${client.user.tag}!`)	
+	console.log(`Logged in as ${client.user.tag}!`) 
 	client.user.setStatus("invisible")
-	client.user.setPresence({game: {name: "guildwars.huiji.wiki", type:0}})
+	//client.user.setPresence({game: {name: "guildwars.huiji.wiki", type:0}})
 	
 	music(client, {
 		prefix: '-',        // Prefix of '-'.
@@ -174,16 +174,11 @@ app.use(bodyParser.urlencoded({extended: true}))
 //For CLI, the command is: 
 //heroku config:set mlabURI=mongodb://<dbuser>:<dbpassword>@ds147872.mlab.com:47872/chatbotjs -a chatbotjs (or other appname)
 //can use any other name besides mlabURI to store the URI
-MongoClient.connect(process.env.mlabURI, (err, database) => {
-	if (err) return console.log(err)
-	db = database
+let mongoConnect = MongoClient.connect(process.env.mlabURI)
 
-	//only listen to web traffic after database is connected
 	
-	app.listen(PORT, function() {
-		console.log(`Listening on ${ PORT }`)
-	})
-	
+app.listen(PORT, function() {
+	console.log(`Listening on ${ PORT }`)
 })
 
 //regular page visits to specified paths, here '/' indicates "home page"
