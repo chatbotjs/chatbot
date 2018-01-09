@@ -179,11 +179,11 @@ MongoClient.connect(process.env.mlabURI, (err, database) => {
 	db = database
 
 	//only listen to web traffic after database is connected
-	/*
+	
 	app.listen(PORT, function() {
 		console.log(`Listening on ${ PORT }`)
 	})
-	*/
+	
 })
 
 //regular page visits to specified paths, here '/' indicates "home page"
