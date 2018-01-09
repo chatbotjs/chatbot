@@ -190,8 +190,7 @@ MongoClient.connect(process.env.mlabURI, (err, database) => {
 app.get('/', (req, res) => {
 	//requires the actual path to where this project resides ("root directory")
 	//else node won't be able to resolve the relative path to index.html
-	//b/c relative paths are relative to this directory
-	console.log("how is this possible")
+	//b/c relative paths are relative to this directory	
 	res.sendFile(__dirname + '/index.html')	
 });
 
