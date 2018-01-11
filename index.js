@@ -91,7 +91,7 @@ client.on('message', msg => {
 		msg.channel.bulkDelete(100)
 	} else if (command === 'roleID') { //this block isn't realy needed		
 		debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id)		
-	} else if (command === 'tempMute'){ //this block isn't realy needed
+	} else if (command === 'tempmute'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
 			output += recentAds[i].name + "\n"
