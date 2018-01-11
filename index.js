@@ -114,13 +114,16 @@ client.on('message', msg => {
 
 function cmdLookup(cmd){
 	switch(cmd) {
-		case "擦": case "delete":
+		case "擦": 
+		case "delete":
 			return "擦"
 			break
-		case "暂禁": case "tempmute":
+		case "暂禁": 
+		case "tempmute":
 			return "暂禁"
 			break
-		case "岗号": case "roleid":
+		case "岗号": 
+		case "roleid":
 			return "岗号"
 			break		
 		default:
