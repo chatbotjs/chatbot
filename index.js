@@ -18,7 +18,16 @@ const express = require('express')
 const bodyParser= require('body-parser')
 
 //for mongodb
+
+//Don't install mlab through heroku addon; that process requires credit cards
+//Instead, visit mlab.com to create a free/sandbox database there 
+//After a database is created, create a user under its "users" tab
+//Record the database URI in some heroku environment variable, either by using the heroku GUI or heroku CLI:
+//For CLI, the command is: 
+//heroku config:set mlabURI=mongodb://<dbuser>:<dbpassword>@ds147872.mlab.com:47872/chatbotjs -a chatbotjs (or other appname)
+//can use any other name besides mlabURI to store the URI
 const MongoClient = require('mongodb').MongoClient
+let mongoConnect = MongoClient.connect(process.env.mlabURI)
 
 //for discordbot====================================================================
 const Discord = require("discord.js");
@@ -27,6 +36,9 @@ const client = new Discord.Client();
 const adChnl_Cn = '398750522569654272'
 const adChnl_En = '398750484870987777'
 const debugChnl = '398900001805434881'
+const offlineAgentS = '191092281703399424'
+const selfAgent = "190958302744543232"
+const botPrefix = "!"
 
 //use Heroku GUI or Heroku CLI to store the discord token on Heroku under any preferred name
 //e.g., discordToken
@@ -48,7 +60,7 @@ client.on('ready', () => {
 
 client.on("guildMemberAdd", (member) => {
   console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
-  if (member.id=='191092281703399424'){
+  if (member.id == offlineAgentS){
 	  if (!member.roles.find("name", "管理员")){
 		  member.addRole(member.guild.roles.find("name", "管理员"))
 		  debugLog("tried to add 管理员 to: "+member.nickname+" ("+member.id+")")
@@ -61,17 +73,37 @@ client.on("guildMemberAdd", (member) => {
 });
 
 client.on('message', msg => {	
-	if (msg.content === '!delete' && msg.author.id == "190958302744543232") {
+	if (msg.author.bot) return;
+	if(msg.content.indexOf(botPrefix) !== 0) return;
+	
+	let args = message.content.slice(botPrefix.length).trim().split(/\s*\;\s*/g);
+	let command = ""
+	if (args[0].match(/ +/g)){
+		command = args[0].match(/([^ ]+) /g)[1].toLowerCase()
+		args[0] = args[0].replace(/([^ ]+) +/g, "")
+	} else {
+		command = args.shift().toLowerCase()
+	}		
+ 	console.log(command)
+	console.log(args)
+	
+	if (command === 'delete' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
-	} else if (msg.content.match(/^!roleID\s/gi)) { //this block isn't realy needed
-		let roleName = msg.content.replace(/^!roleID\s/gi, '')
-		debugLog("ID for "+roleName+" is: "+msg.guild.roles.find("name", roleName).id)		
-	} else if (msg.content === '!showTally'){ //this block isn't realy needed
+	} else if (command === 'roleID') { //this block isn't realy needed		
+		debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id)		
+	} else if (command === 'tempMute'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
 			output += recentAds[i].name + "\n"
 		}
 		debugLog(output)
+	} else {
+		try {
+			let commandFile = require(__dirname + `/commands/${command}.js`);
+			commandFile.run(client, mongoConnect, msg, args);
+		} catch (err) {
+			console.error(err);
+		}
 	}
 })
 
@@ -166,16 +198,6 @@ const app = express()
 //expand the functionalities of express
 //to process items such as form input
 app.use(bodyParser.urlencoded({extended: true}))
-
-//Don't install mlab through heroku addon; that process requires credit cards
-//Instead, visit mlab.com to create a free/sandbox database there 
-//After a database is created, create a user under its "users" tab
-//Record the database URI in some heroku environment variable, either by using the heroku GUI or heroku CLI:
-//For CLI, the command is: 
-//heroku config:set mlabURI=mongodb://<dbuser>:<dbpassword>@ds147872.mlab.com:47872/chatbotjs -a chatbotjs (or other appname)
-//can use any other name besides mlabURI to store the URI
-let mongoConnect = MongoClient.connect(process.env.mlabURI)
-
 	
 app.listen(PORT, function() {
 	console.log(`Listening on ${ PORT }`)
