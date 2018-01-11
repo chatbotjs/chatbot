@@ -86,7 +86,7 @@ client.on('message', msg => {
 		command = args.shift().toLowerCase()
 	}		
 	
-	//command = cmdLookup(command)
+	command = cmdLookup(command)
  	debugLog(command)
 	debugLog(args)
 	
