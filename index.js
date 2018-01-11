@@ -76,7 +76,7 @@ client.on('message', msg => {
 	if (msg.author.bot) return;
 	if(msg.content.indexOf(botPrefix) !== 0) return;
 	
-	let args = message.content.slice(botPrefix.length).trim().split(/\s*\;\s*/g);
+	let args = msg.content.slice(botPrefix.length).trim().split(/\s*\;\s*/g);
 	let command = ""
 	if (args[0].match(/ +/g)){
 		command = args[0].match(/([^ ]+) /g)[1].toLowerCase()
