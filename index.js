@@ -87,8 +87,8 @@ client.on('message', msg => {
 	}		
 	
 	command = cmdLookup(command)
- 	console.log(command)
-	console.log(args)
+ 	debugLog(command)
+	debugLog(args)
 	
 	if (command === 'delete' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
