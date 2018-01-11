@@ -90,11 +90,11 @@ client.on('message', msg => {
  	debugLog(command)
 	debugLog(args)
 	
-	if (command === 'delete' && msg.author.id == selfAgent) {
+	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
-	} else if (command === 'roleID') { //this block isn't realy needed		
+	} else if (command === '岗号') { //this block isn't realy needed		
 		debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id)		
-	} else if (command === 'tempmute'){ //this block isn't realy needed
+	} else if (command === '暂禁'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
 			output += recentAds[i].name + "\n"
@@ -113,7 +113,19 @@ client.on('message', msg => {
 })
 
 function cmdLookup(cmd){
-	return cmd
+	switch(cmd) {
+		case "擦": case "delete":
+			return "擦"
+			break
+		case "暂禁": case "tempmute":
+			return "暂禁"
+			break
+		case "岗号": case "roleid":
+			return "岗号"
+			break		
+		default:
+			return cmd
+	} 	
 }
 
 function debugLog(msg){
