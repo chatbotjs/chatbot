@@ -78,12 +78,15 @@ client.on('message', msg => {
 	
 	let args = msg.content.slice(botPrefix.length).trim().split(/\s*\;\s*/g);
 	let command = ""
-	if (args[0].match(/ +/g)){		
-		command = args[0].match(/([^ ]+) /g)[0].toLowerCase() //the g flag alters the output format for match
+	if (args[0].match(/ +/g)){
+		//the g flag below would alter the output format for match, and captured groups would be disgarded in that case
+		command = args[0].match(/([^ ]+) /)[1].toLowerCase() 
 		args[0] = args[0].replace(/([^ ]+) +/g, "")
 	} else {
 		command = args.shift().toLowerCase()
 	}		
+	
+	command = cmdLookup(command)
  	console.log(command)
 	console.log(args)
 	
@@ -98,14 +101,20 @@ client.on('message', msg => {
 		}
 		debugLog(output)
 	} else {
+		/*
 		try {
 			let commandFile = require(__dirname + `/commands/${command}.js`);
 			commandFile.run(client, mongoConnect, msg, args);
 		} catch (err) {
 			console.error(err);
 		}
+		*/
 	}
 })
+
+function cmdLookup(cmd){
+	return cmd
+}
 
 function debugLog(msg){
 	client.channels.get(debugChnl).send(msg).catch(console.error)
