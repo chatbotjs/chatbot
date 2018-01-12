@@ -38,7 +38,6 @@ const adChnl_En = '398750484870987777'
 const debugChnl = '398900001805434881'
 const offlineAgentS = '191092281703399424'
 const selfAgent = "190958302744543232"
-const botPrefix = "!"
 
 //use Heroku GUI or Heroku CLI to store the discord token on Heroku under any preferred name
 //e.g., discordToken
@@ -74,9 +73,9 @@ client.on("guildMemberAdd", (member) => {
 
 client.on('message', msg => {	
 	if (msg.author.bot) return;
-	if(msg.content.indexOf(botPrefix) !== 0) return;
+	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
 	
-	let args = msg.content.slice(botPrefix.length).trim().split(/\s*\;\s*/g);
+	let args = msg.content.slice(1).trim().split(/\s*\;\s*/g);
 	let command = ""
 	if (args[0].match(/ +/g)){
 		//the g flag below would alter the output format for match, and captured groups would be disgarded in that case
@@ -90,11 +89,14 @@ client.on('message', msg => {
 	}		
 	
 	command = cmdLookup(command)
+	
  	console.log("command: "+command)
 	console.log("args array: "+args)
 	console.log("args element 1: "+args[0])
 	if (command) {
 		debugLog(command)
+	} else {
+		console.log("there is command")
 	}
 	if (args) {
 		debugLog(args)	
@@ -127,18 +129,19 @@ client.on('message', msg => {
 
 function cmdLookup(cmd){
 	switch(cmd) {
-		case "擦": 
-		case "delete":
+		case "擦": case "delete":
 			return "擦"
 			break
-		case "暂禁": 
-		case "tempmute":
+		case "暂禁": case "tempmute":
 			return "暂禁"
 			break
-		case "岗号": 
-		case "roleid":
+		case "岗号": case "roleid":
 			return "岗号"
 			break		
+		case "track+": case "track-": case "trackx": case "track":
+		case "报+": case "报-": case "报x": case "报": 
+			return "报"
+			break
 		default:
 			return cmd
 	} 	
