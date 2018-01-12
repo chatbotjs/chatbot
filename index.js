@@ -101,7 +101,7 @@ client.on('message', msg => {
 			console.log("testing template command !!!: "+ command)
 			//3 ex command
 			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				console.log(userHasRole(msg, "外文"))
+				console.log(authorHasRole(msg, "外文"))
 				//guildwars.huijiwiki.com/wiki/j?y?
 				//guildwars.huijiwiki.com/wiki/j?h?
 			}			
@@ -109,7 +109,8 @@ client.on('message', msg => {
 			console.log("!! command: "+command)
 			//2 ex command
 			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				console.log(userHasRole(msg, "外文"))
+				console.log(args[0].toLowerCase())
+				((args[0].toLowerCase()=="cn") || authorHasRole(msg, "中文")) ? console.log("true") :console.log("false")
 				//guildwars.huijiwiki.com/wiki/j?
 				//guildwars.huijiwiki.com/wiki/j?e?
 			}			
@@ -136,7 +137,7 @@ client.on('message', msg => {
 	}
 })
 
-function userHasRole(message, roleName){
+function authorHasRole(message, roleName){
 	//might be discordjs v11 specific
 	let modRole = message.guild.roles.find("name", roleName)
     return (message.member.roles.has(modRole.id))
