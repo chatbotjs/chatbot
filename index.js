@@ -93,9 +93,9 @@ client.on('message', msg => {
  	console.log("command: "+command)
 	console.log("args array: "+args)
 	console.log("args element 1: "+args[0])
-	debugLog(command)
-	debugLog(args)
-	debugLog(args[0])
+	//debugLog(command)
+	//debugLog(args)
+	//debugLog(args[0])
 	
 	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
