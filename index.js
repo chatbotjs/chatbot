@@ -95,17 +95,24 @@ client.on('message', msg => {
 	console.log("args element 1: "+args[0])
 
 	if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
-		command = command.slice(1)
-		console.log("testing template command: "+ command)
+		command = command.slice(1)		
 		if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
 			command = command.slice(1)
 			console.log("testing template command !!!: "+ command)
 			//3 ex command
-			//validate command
+			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
+				debugLog(msg.author.roles)
+				//guildwars.huijiwiki.com/wiki/j?y?
+				//guildwars.huijiwiki.com/wiki/j?h?
+			}			
 		} else {
 			console.log("!! command: "+command)
 			//2 ex command
-			//validate command
+			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
+				debugLog(msg.author.roles)
+				//guildwars.huijiwiki.com/wiki/j?
+				//guildwars.huijiwiki.com/wiki/j?e?
+			}			
 		}			
 	} else if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
