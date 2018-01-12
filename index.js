@@ -93,14 +93,14 @@ client.on('message', msg => {
  	console.log("command: "+command)
 	console.log("args array: "+args)
 	console.log("args element 1: "+args[0])
-	(command) ? debugLog(command)
-	(args) ? debugLog(args)	
-	(args[0]) ? debugLog(args[0])
+	if (command) debugLog(command)
+	if (args) debugLog(args)	
+	if (args[0]) debugLog(args[0])
 	
 	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
 	} else if (command === '岗号') { //this block isn't realy needed	
-		(args[0]) ? debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id)	: debugLog("未提供岗位名称")		
+		(args[0]) ? debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id) : debugLog("未提供岗位名称")		
 	} else if (command === '暂禁'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
