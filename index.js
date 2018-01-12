@@ -101,7 +101,7 @@ client.on('message', msg => {
 			console.log("testing template command !!!: "+ command)
 			//3 ex command
 			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				debugLog(msg.author.roles)
+				debugLog(msg.author.tag)
 				//guildwars.huijiwiki.com/wiki/j?y?
 				//guildwars.huijiwiki.com/wiki/j?h?
 			}			
@@ -109,7 +109,7 @@ client.on('message', msg => {
 			console.log("!! command: "+command)
 			//2 ex command
 			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				debugLog(msg.author.roles)
+				debugLog(msg.author.tag)
 				//guildwars.huijiwiki.com/wiki/j?
 				//guildwars.huijiwiki.com/wiki/j?e?
 			}			
