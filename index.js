@@ -93,19 +93,21 @@ client.on('message', msg => {
  	console.log("command: "+command)
 	console.log("args array: "+args)
 	console.log("args element 1: "+args[0])
-	if (command) {
-		debugLog(command)
-	} else {
-		console.log("there is command")
-	}
-	if (args) {
-		debugLog(args)	
-	}
-	if (args[0]) {
-		debugLog(args[0])
-	}
-	
-	if (command === '擦' && msg.author.id == selfAgent) {
+
+	if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
+		command = command.slice(1)
+		console.log("testing template command: "+ command)
+		if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
+			command = command.slice(1)
+			console.log("testing template command !!!: "+ command)
+			//3 ex command
+			//validate command
+		} else {
+			console.log("!! command: "+command)
+			//2 ex command
+			//validate command
+		}			
+	} else if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
 	} else if (command === '岗号') { //this block isn't realy needed	
 		(args[0]) ? debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id) : debugLog("未提供岗位名称")		
