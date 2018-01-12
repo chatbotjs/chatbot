@@ -101,7 +101,7 @@ client.on('message', msg => {
 			console.log("testing template command !!!: "+ command)
 			//3 ex command
 			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				debugLog(msg.author.tag)
+				console.log(userHasRole(msg.member, "外文"))
 				//guildwars.huijiwiki.com/wiki/j?y?
 				//guildwars.huijiwiki.com/wiki/j?h?
 			}			
@@ -109,7 +109,7 @@ client.on('message', msg => {
 			console.log("!! command: "+command)
 			//2 ex command
 			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				debugLog(msg.author.tag)
+				console.log(userHasRole(msg.member, "外文"))
 				//guildwars.huijiwiki.com/wiki/j?
 				//guildwars.huijiwiki.com/wiki/j?e?
 			}			
@@ -135,6 +135,12 @@ client.on('message', msg => {
 		*/
 	}
 })
+
+function userHasRole(user, roleName){
+	//might be discordjs v11 specific
+	let modRole = message.guild.roles.find("name", roleName)
+    return (user.roles.has(modRole.id))
+}
 
 function cmdLookup(cmd){
 	switch(cmd) {
