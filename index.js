@@ -87,9 +87,9 @@ client.on('message', msg => {
 	}		
 	
 	command = cmdLookup(command)
- 	console.log(command)
-	console.log(args)
-	console.log(args[0])
+ 	console.log("command: "+command)
+	console.log("args array: "+args)
+	console.log("args element 1: "+args[0])
 	
 	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
