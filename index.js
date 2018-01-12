@@ -81,7 +81,10 @@ client.on('message', msg => {
 	if (args[0].match(/ +/g)){
 		//the g flag below would alter the output format for match, and captured groups would be disgarded in that case
 		command = args[0].match(/([^ ]+) /)[1].toLowerCase() 
+		console.log("previous args: "+args)
+		console.log("previous args[0]: "+args[0])
 		args[0] = args[0].replace(/([^ ]+) +/g, "")
+		console.log("changed args[0]: "+args[0])
 	} else {
 		command = args.shift().toLowerCase()
 	}		
