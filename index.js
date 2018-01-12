@@ -83,7 +83,7 @@ client.on('message', msg => {
 		command = args[0].match(/([^ ]+) /)[1].toLowerCase() 
 		console.log("previous args: "+args)
 		console.log("previous args[0]: "+args[0])
-		args[0] = args[0].replace(/([^ ]+) +/g, "")
+		args[0] = args[0].replace(/[^ ]+ +/, "")
 		console.log("changed args[0]: "+args[0])
 	} else {
 		command = args.shift().toLowerCase()
@@ -93,6 +93,9 @@ client.on('message', msg => {
  	console.log("command: "+command)
 	console.log("args array: "+args)
 	console.log("args element 1: "+args[0])
+	debugLog(command)
+	debugLog(args)
+	debugLog(args[0])
 	
 	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
