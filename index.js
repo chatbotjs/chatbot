@@ -99,8 +99,12 @@ client.on('message', msg => {
 	
 	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
-	} else if (command === '岗号') { //this block isn't realy needed		
-		debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id)		
+	} else if (command === '岗号') { //this block isn't realy needed	
+		if (args[0]){
+			debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id)		
+		} else {
+			debugLog("未提供岗位名称")
+		}		
 	} else if (command === '暂禁'){ //this block isn't realy needed
 		let output = ""
 		for (let i = 0; i<recentAds.length;i++){
