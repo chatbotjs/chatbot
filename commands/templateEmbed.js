@@ -29,21 +29,18 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		
 		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
-			profEntry = (profNameCn(secondaryProf)) ? profNameCn(primaryProf) + " | " + profNameCn(secondaryProf) : profNameCn(primaryProf)			
-			address = (pvp) ? "✎[图解]("+address+"y?"+templateCode+")" : "[图解➻]("+address+templateCode+")"	
-			title = "技能编码: "
+			profEntry = (profNameCn(secondaryProf)) ? "技能编码: "+profNameCn(primaryProf) + " / " + profNameCn(secondaryProf) : "技能编码: "+profNameCn(primaryProf)			
+			address = (pvp) ? "‡[图示]("+address+"y?"+templateCode+")" : "[图解➻]("+address+templateCode+")"				
 			
 		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
 			
-			profEntry = (profNameEn(secondaryProf)) ? profNameEn(primaryProf) + " | " + profNameEn(secondaryProf) : profNameEn(primaryProf)			
-			address = (pvp) ? "✎[iconView]("+address+"h?"+templateCode+")" : "[iconView➻]("+address+"e?"+templateCode+")"			
-			title = "Template Code: "
+			profEntry = (profNameEn(secondaryProf)) ? "Template: "+profNameEn(primaryProf) + " / " + profNameEn(secondaryProf) : "Template: "+profNameEn(primaryProf)			
+			address = (pvp) ? "‡[iconView]("+address+"h?"+templateCode+")" : "[iconView➻]("+address+"e?"+templateCode+")"						
 			
 		}
 			
-		let embedTemplate = new Discord.RichEmbed()
-			.setAuthor(title) //.setAuthor("Author Name", null, "https://")		
-			.setColor(getRandomColor()) 
+		let embedTemplate = new Discord.RichEmbed()			
+			.setColor(getRandomColor()) //.setAuthor("Author Name", null, "https://")	
 			.setDescription(profEntry)
 			.addField(templateCode,address)
 					
