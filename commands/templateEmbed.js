@@ -17,7 +17,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		if(bin.substr(0, 4) == '0111') bin = bin.substr(4);
 		
 		if((bin.length < 23) || (bin.substr(0, 6) != '000000')){
-			message.channel.send("编码格式有误\n(invalid code)").catch(console.error);
+			message.channel.send("编码格式有误\n (invalid code)").catch(console.error);
 			return
 		}
 		
@@ -28,17 +28,15 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		
 		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
-			profEntry = (profNameCn(secondaryProf)) ? profNameCn(primaryProf) + " | " + profNameCn(secondaryProf) : profNameCn(primaryProf)
-			templateCode = "技能编码: "+templateCode
+			profEntry = (profNameCn(secondaryProf)) ? profNameCn(primaryProf) + " | " + profNameCn(secondaryProf) : profNameCn(primaryProf)			
 			address = (pvp) ? "꧁[图解]("+address+"y?"+templateCode+")" : "[图解➻]("+address+templateCode+")"
-			
+			templateCode = "技能编码: "+templateCode
 			
 		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
 			
-			profEntry = (profNameEn(secondaryProf)) ? profNameEn(primaryProf) + " | " + profNameEn(secondaryProf) : profNameEn(primaryProf)
-			templateCode = "Template Code: "+templateCode
+			profEntry = (profNameEn(secondaryProf)) ? profNameEn(primaryProf) + " | " + profNameEn(secondaryProf) : profNameEn(primaryProf)			
 			address = (pvp) ? "꧁[iconView]("+address+"h?"+templateCode+")" : "[iconView➻]("+address+"e?"+templateCode+")"
-			
+			templateCode = "Template Code: "+templateCode
 		}
 			
 		let embedTemplate = new Discord.RichEmbed()
@@ -49,7 +47,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		message.channel.send(embedTemplate).catch(console.error);
 		
 	} else {
-		message.channel.send("编码格式有误\n(invalid code)").catch(console.error);
+		message.channel.send("编码格式有误\n (invalid code)").catch(console.error);
 		return
 	}
 }
