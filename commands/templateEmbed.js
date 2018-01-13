@@ -17,8 +17,8 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		if(bin.substr(0, 4) == '0111') bin = bin.substr(4);
 		
 		if((bin.length < 23) || (bin.substr(0, 6) != '000000')){
-			message.channel.send("编码格式有误\n(improper template code)").catch(console.error);
-			return;
+			message.channel.send("编码格式有误\n(invalid code)").catch(console.error);
+			return
 		}
 		
 		bin = bin.substr(6);
@@ -45,6 +45,9 @@ exports.run = (Discord, client, templateCode, message, args) => {
 					
 		message.channel.send(embedTemplate).catch(console.error);
 		
+	} else {
+		message.channel.send("编码格式有误\n(invalid code)").catch(console.error);
+		return
 	}
 }
 
