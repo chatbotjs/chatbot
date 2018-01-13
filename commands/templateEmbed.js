@@ -47,7 +47,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 			.addField("__"+templateCode+"__",address)
 		*/
 		
-		let randomColor = getRandomColor()
+		let randomColor = parseInt(getRandomColor(), 10)
 		
 		message.mentions.users.forEach(user => mention += "<@!"+user.id+"> ")
 		
