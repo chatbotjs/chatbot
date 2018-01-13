@@ -26,12 +26,12 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		let secondaryProf = binval(bin.substr(4, 4))
 		let profEntry = ""
 		let title = ""
-		let mention = "\u200b"
+		let mention = ""
 		
 		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
 			profEntry = (profNameCn(secondaryProf)) ? "技能编码: "+profNameCn(primaryProf) + " / " + profNameCn(secondaryProf) : "技能编码: "+profNameCn(primaryProf)			
-			address = (pvp) ? "图示: [☛]("+address+"y?"+templateCode+")" : "图示: [☛]("+address+templateCode+")"				
+			address = (pvp) ? "☛ [图示]("+address+"y?"+templateCode+")" : "图示: [☛]("+address+templateCode+")"				
 			
 		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
 			
@@ -40,32 +40,14 @@ exports.run = (Discord, client, templateCode, message, args) => {
 			
 		}
 		
-		/*
-		let embedTemplate = new Discord.RichEmbed()			
+		message.mentions.users.forEach(user => mention += "<@!"+user.id+"> ")	
+		
+		let embedTemplate = new Discord.RichEmbed()		
+			.setTitle(mention)
 			.setColor(getRandomColor()) //.setAuthor("Author Name", null, "https://")	
 			.setDescription(profEntry)
-			.addField("__"+templateCode+"__",address)
-		*/
-		
-		let randomColor = parseInt(getRandomColor(), 10)
-		
-		message.mentions.users.forEach(user => mention += "<@!"+user.id+"> ")
-		
-		let embedTemplate = {
-		  "content": `${mention}`,
-		  "embed": {    
-			"description": `${profEntry}`,
-			"color": `${randomColor}`,
-			"fields": [
-			  {
-				"name": `__${templateCode}__`,
-				"value": `${address}`
-			  }
-			]
-		  }
-		}			
-			
-					
+			.addField("__"+templateCode+"__",address)				
+								
 		message.channel.send(embedTemplate).catch(console.error);
 		
 	} else {
