@@ -105,6 +105,13 @@ function profNameEn(input){
 			return null
 	}
 }
+
+function authorHasRole(message, roleName){
+	//might be discordjs v11 specific
+	let modRole = message.guild.roles.find("name", roleName)
+    return (message.member.roles.has(modRole.id))
+}
+
 function getRandomColor() {
   let letters = '0123456789ABCDEF';  
   let result = '';
