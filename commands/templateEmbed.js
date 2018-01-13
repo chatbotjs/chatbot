@@ -26,6 +26,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		let secondaryProf = binval(bin.substr(4, 4))
 		let profEntry = ""
 		let title = ""
+		let mention = ""
 		
 		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
@@ -43,8 +44,10 @@ exports.run = (Discord, client, templateCode, message, args) => {
 			.setColor(getRandomColor()) //.setAuthor("Author Name", null, "https://")	
 			.setDescription(profEntry)
 			.addField("__"+templateCode+"__",address)
-					
-		message.channel.send(embedTemplate).catch(console.error);
+
+		message.mentions.users.forEach(user => mention += "@"+user.id+" ")
+		
+		message.channel.send((mention == "") ? embedTemplate : mention + "\n" + embedTemplate).catch(console.error);
 		
 	} else {
 		message.channel.send("编码格式有误\n (invalid code)").catch(console.error);
