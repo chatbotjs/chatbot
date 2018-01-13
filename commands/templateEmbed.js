@@ -4,7 +4,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 	
 	let displayLang = "cn"
 	let pvp = false
-	let address = "https://guildwars.huijiwiki.com/wiki/j?"
+	let address = "https://guildwars.huijiwiki.com/wiki/j?"	
 	
 	if ((templateCode.indexOf("!") == 0) || (templateCode.indexOf("！") == 0)) {
 		templateCode = templateCode.slice(1)		
@@ -31,26 +31,31 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
 			profEntry = (profNameCn(secondaryProf)) ? "技能编码: "+profNameCn(primaryProf) + " / " + profNameCn(secondaryProf) : "技能编码: "+profNameCn(primaryProf)			
-			address = (pvp) ? "☛ [图示]("+address+"y?"+templateCode+")" : "图示: [☛]("+address+templateCode+")"				
+			address = (pvp) ? "☛ [图示]("+address+"y?"+templateCode+")" : "☛ [图示]("+address+templateCode+")"				
 			
 		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
 			
 			profEntry = (profNameEn(secondaryProf)) ? "Template: "+profNameEn(primaryProf) + " / " + profNameEn(secondaryProf) : "Template: "+profNameEn(primaryProf)			
-			address = (pvp) ? "iconView: [☛]("+address+"h?"+templateCode+")" : "iconView: [☛]("+address+"e?"+templateCode+")"						
+			address = (pvp) ? "☛ [iconView]("+address+"h?"+templateCode+")" : "☛ [iconView]("+address+"e?"+templateCode+")"						
 			
 		}
 		
-		message.mentions.users.forEach(user => mention += "<@!"+user.id+"> ")	
+		message.mentions.users.forEach(user => {mention += "<@!"+user.id+"> "})	
 		
-		let embedTemplate = new Discord.RichEmbed()		
-			.setTitle(mention)
+		let embedTemplate = new Discord.RichEmbed()					
 			.setColor(getRandomColor()) //.setAuthor("Author Name", null, "https://")	
 			.setDescription(profEntry)
 			.addField("__"+templateCode+"__",address)				
-								
-		message.channel.send(embedTemplate).catch(console.error);
 		
-	} else {
+		let currentChannel = message.channel
+		message.delete()
+		if (mention !== ""){
+			currentChannel.send(mention).then(()=>{currentChannel.send(embedTemplate).catch(console.error)}).catch(console.error)
+		} else {
+			currentChannel.send(embedTemplate).catch(console.error)
+		}
+					
+	} else {		
 		message.channel.send("编码格式有误\n (invalid code)").catch(console.error);
 		return
 	}
