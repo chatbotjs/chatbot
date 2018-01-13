@@ -95,26 +95,13 @@ client.on('message', msg => {
 	console.log("args element 1: "+args[0])
 
 	if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
-		command = command.slice(1)		
-		if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
-			command = command.slice(1)
-			console.log("testing template command !!!: "+ command)
-			//3 ex command
-			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				console.log(authorHasRole(msg, "外文"))
-				//guildwars.huijiwiki.com/wiki/j?y?
-				//guildwars.huijiwiki.com/wiki/j?h?
-			}			
-		} else {
-			console.log("!! command: "+command)
-			//2 ex command
-			if (command.match(/^[A-Za-z0-9\+\/]+$/)){
-				console.log(args[0].toLowerCase())
-				((args[0].toLowerCase()=="cn") || authorHasRole(msg, "中文")) ? console.log("true") :console.log("false")
-				//guildwars.huijiwiki.com/wiki/j?
-				//guildwars.huijiwiki.com/wiki/j?e?
-			}			
-		}			
+		let templateCode = command
+		try {
+			let commandFile = require(__dirname + `/commands/templateEmbed.js`);
+			commandFile.run(client, templateCode, msg, args);
+		} catch (err) {
+			console.error(err);
+		}					
 	} else if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
 	} else if (command === '岗号') { //this block isn't realy needed	
@@ -136,6 +123,7 @@ client.on('message', msg => {
 		*/
 	}
 })
+
 
 function authorHasRole(message, roleName){
 	//might be discordjs v11 specific
@@ -167,14 +155,6 @@ function debugLog(msg){
 	client.channels.get(debugChnl).send(msg).catch(console.error)
 }
 
-function getRandomColor() {
-  let letters = '0123456789ABCDEF';  
-  let result = '';
-  for (let i = 0; i < 6; i++) {
-    result += letters.charAt(Math.floor(Math.random() * 16));
-  }
-  return "0x"+result;
-}
 //end discordbot====================================================================
 
 
