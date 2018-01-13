@@ -25,22 +25,25 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		let primaryProf = binval(bin.substr(0, 4))
 		let secondaryProf = binval(bin.substr(4, 4))
 		let profEntry = ""
+		let title = ""
 		
 		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
 			profEntry = (profNameCn(secondaryProf)) ? profNameCn(primaryProf) + " | " + profNameCn(secondaryProf) : profNameCn(primaryProf)			
-			address = (pvp) ? "꧁[图解]("+address+"y?"+templateCode+")" : "[图解➻]("+address+templateCode+")"
-			templateCode = "技能编码: "+templateCode
+			address = (pvp) ? "✎[图解]("+address+"y?"+templateCode+")" : "[图解➻]("+address+templateCode+")"	
+			title = "技能编码: "
 			
 		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
 			
 			profEntry = (profNameEn(secondaryProf)) ? profNameEn(primaryProf) + " | " + profNameEn(secondaryProf) : profNameEn(primaryProf)			
-			address = (pvp) ? "꧁[iconView]("+address+"h?"+templateCode+")" : "[iconView➻]("+address+"e?"+templateCode+")"
-			templateCode = "Template Code: "+templateCode
+			address = (pvp) ? "✎[iconView]("+address+"h?"+templateCode+")" : "[iconView➻]("+address+"e?"+templateCode+")"			
+			title = "Template Code: "
+			
 		}
 			
 		let embedTemplate = new Discord.RichEmbed()
-			.setColor(getRandomColor()) //.setAuthor("Author Name", null, "https://")		
+			.setAuthor(title) //.setAuthor("Author Name", null, "https://")		
+			.setColor(getRandomColor()) 
 			.setDescription(profEntry)
 			.addField(templateCode,address)
 					
