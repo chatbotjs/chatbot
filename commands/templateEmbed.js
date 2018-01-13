@@ -31,13 +31,13 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
 			profEntry = (profNameCn(secondaryProf)) ? "技能编码: "+profNameCn(primaryProf) + " / " + profNameCn(secondaryProf) : "技能编码: "+profNameCn(primaryProf)
-			profEntry = (pvp) ? profEntry + "(竞赛版)" : profEntry
+			profEntry = (pvp) ? profEntry + " (竞赛版)" : profEntry
 			address = (pvp) ? "☛ [图示]("+address+"y?"+templateCode+")" : "☛ [图示]("+address+templateCode+")"				
 			
 		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
 			
 			profEntry = (profNameEn(secondaryProf)) ? "Template: "+profNameEn(primaryProf) + " / " + profNameEn(secondaryProf) : "Template: "+profNameEn(primaryProf)			
-			profEntry = (pvp) ? profEntry + "(PvP)" : profEntry
+			profEntry = (pvp) ? profEntry + " (PvP)" : profEntry
 			address = (pvp) ? "☛ [iconView]("+address+"h?"+templateCode+")" : "☛ [iconView]("+address+"e?"+templateCode+")"						
 			
 		}
