@@ -178,9 +178,7 @@ wss.on('message', function incoming(msg) {
 	  
 	let cnTime = "*"+csTime.toLocaleDateString('zh-CN')+"*  | *"+csTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")+"*"
 		
-	let enTime = "*"+psTime.toLocaleDateString('en-US')+"*  | *PST "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")+"*"
-	
-	let randomColor = getRandomColor()
+	let enTime = "*"+psTime.toLocaleDateString('en-US')+"*  | *PST "+psTime.toString().replace(/^.+?[0-9]\s([0-9]?[0-9]\:[0-9][0-9]\:[0-9][0-9])\sGMT.+?$/gi, "$1")+"*"	
 	
 	let embedAdCn = new Discord.RichEmbed()
 		.setColor(0) //.setAuthor("Author Name", null, "https://")		
