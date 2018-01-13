@@ -26,12 +26,12 @@ exports.run = (client, templateCode, message, args) => {
 		let secondaryProf = binval(bin.substr(4, 4))
 		let profEntry = ""
 		
-		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(msg, "中文")){
+		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
 			
 			profEntry = (profNameCn(secondaryProf)) ? profNameCn(primaryProf) + " | " + profNameCn(secondaryProf) : profNameCn(primaryProf)
 			address = (pvp) ? "[图解➻]("+address+"y?"+templateCode+")" : "[图解➻]("+address+templateCode+")"
 			
-		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(msg, "外文")){
+		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
 			
 			profEntry = (profNameEn(secondaryProf)) ? profNameEn(primaryProf) + " | " + profNameEn(secondaryProf) : profNameEn(primaryProf)
 			address = (pvp) ? "[iconView➻]("+address+"h?"+templateCode+")" : "[iconView➻]("+address+"e?"+templateCode+")"
