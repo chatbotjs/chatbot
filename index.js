@@ -88,7 +88,10 @@ client.on('message', msg => {
 		command = args.shift()
 	}		
 	
-
+ 	console.log("command: "+command)
+	console.log("args array: "+args)
+	console.log("args element 1: "+args[0])
+	
 	if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
 		let templateCode = command
 		try {
@@ -101,10 +104,6 @@ client.on('message', msg => {
 	} 
 	
 	command = cmdLookup(command.toLowerCase())
-	
- 	console.log("command: "+command)
-	console.log("args array: "+args)
-	console.log("args element 1: "+args[0])
 		
 	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
