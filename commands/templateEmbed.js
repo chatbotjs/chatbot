@@ -45,7 +45,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 			.setDescription(profEntry)
 			.addField("__"+templateCode+"__",address)
 
-		message.mentions.users.forEach(user => mention += "@"+user.id+" ")
+		message.mentions.users.forEach(user => mention += "<@!"+user.id+">")
 		
 		message.channel.send((mention == "") ? embedTemplate : mention + "\n" + embedTemplate).catch(console.error);
 		
