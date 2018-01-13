@@ -42,7 +42,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		let embedTemplate = new Discord.RichEmbed()			
 			.setColor(getRandomColor()) //.setAuthor("Author Name", null, "https://")	
 			.setDescription(profEntry)
-			.addField(templateCode,address)
+			.addField("__"+templateCode+"__",address)
 					
 		message.channel.send(embedTemplate).catch(console.error);
 		
