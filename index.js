@@ -79,20 +79,15 @@ client.on('message', msg => {
 	let command = ""
 	if (args[0].match(/ +/g)){
 		//the g flag below would alter the output format for match, and captured groups would be disgarded in that case
-		command = args[0].match(/([^ ]+) /)[1].toLowerCase() 
+		command = args[0].match(/([^ ]+) /)[1]
 		console.log("previous args: "+args)
 		console.log("previous args[0]: "+args[0])
 		args[0] = args[0].replace(/[^ ]+ +/, "")
 		console.log("changed args[0]: "+args[0])
 	} else {
-		command = args.shift().toLowerCase()
+		command = args.shift()
 	}		
 	
-	command = cmdLookup(command)
-	
- 	console.log("command: "+command)
-	console.log("args array: "+args)
-	console.log("args element 1: "+args[0])
 
 	if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
 		let templateCode = command
@@ -102,7 +97,16 @@ client.on('message', msg => {
 		} catch (err) {
 			console.error(err);
 		}					
-	} else if (command === '擦' && msg.author.id == selfAgent) {
+		return
+	} 
+	
+	command = cmdLookup(command.toLowerCase())
+	
+ 	console.log("command: "+command)
+	console.log("args array: "+args)
+	console.log("args element 1: "+args[0])
+		
+	if (command === '擦' && msg.author.id == selfAgent) {
 		msg.channel.bulkDelete(100)
 	} else if (command === '岗号') { //this block isn't realy needed	
 		(args[0]) ? debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id) : debugLog("未提供岗位名称")		

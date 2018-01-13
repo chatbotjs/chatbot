@@ -15,12 +15,12 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		
 		let bin = codetobin(templateCode);
 		if(bin.substr(0, 4) == '0111') bin = bin.substr(4);
-		/*
+		
 		if((bin.length < 23) || (bin.substr(0, 6) != '000000')){
 			message.channel.send("编码格式有误\n(improper template code)").catch(console.error);
 			return;
 		}
-		*/
+		
 		bin = bin.substr(6);
 		let primaryProf = binval(bin.substr(0, 4))
 		let secondaryProf = binval(bin.substr(4, 4))
