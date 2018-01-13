@@ -1,4 +1,4 @@
-exports.run = (client, templateCode, message, args) => {
+exports.run = (Discord, client, templateCode, message, args) => {
 	
 	templateCode = templateCode.slice(1)		
 	

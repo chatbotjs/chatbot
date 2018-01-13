@@ -98,7 +98,7 @@ client.on('message', msg => {
 		let templateCode = command
 		try {
 			let commandFile = require(__dirname + `/commands/templateEmbed.js`);
-			commandFile.run(client, templateCode, msg, args);
+			commandFile.run(Discord, client, templateCode, msg, args);
 		} catch (err) {
 			console.error(err);
 		}					
