@@ -31,14 +31,14 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		if (args[0]) {
 			if (args.findIndex(entry => {
 				let temp = entry.split((/ +/g))
-				console.log(temp)
+				console.log("temp : "+temp)
 				return temp.findIndex(ele => {
-						console.log(ele)
+						console.log("ele : "+ele)
 						return ele.trim().toLowerCase() == "en"					
 					})
 				})) displayLang = "en"			
 		}
-		
+		console.log("displayLang: "+displayLang)
 		if (displayLang == "en"){
 			
 			profEntry = (profNameEn(secondaryProf)) ? "Template: "+profNameEn(primaryProf) + " / " + profNameEn(secondaryProf) : "Template: "+profNameEn(primaryProf)			
