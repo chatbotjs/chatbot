@@ -6,6 +6,9 @@ exports.run = (Discord, client, templateCode, message, args) => {
 	let pvp = false
 	let address = "https://guildwars.huijiwiki.com/wiki/j?"	
 	
+	let profEntry = ""	
+	let mention = ""
+	
 	if ((templateCode.indexOf("!") == 0) || (templateCode.indexOf("！") == 0)) {
 		templateCode = templateCode.slice(1)		
 		pvp = true
@@ -24,21 +27,27 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		bin = bin.substr(6);
 		let primaryProf = binval(bin.substr(0, 4))
 		let secondaryProf = binval(bin.substr(4, 4))
-		let profEntry = ""
-		let title = ""
-		let mention = ""
+				
+		if (args[0]) {
+			if (args.findIndex(entry => {
+				let temp = entry.splice((/ +/g))
+				return temp.findIndex(ele => {
+						return ele.trim().toLowerCase() == "en"					
+					})
+				})) displayLang = "en"			
+		}
 		
-		if ((args[0] && args[0].toLowerCase()=="cn") || authorHasRole(message, "中文")){
-			
-			profEntry = (profNameCn(secondaryProf)) ? "技能编码: "+profNameCn(primaryProf) + " / " + profNameCn(secondaryProf) : "技能编码: "+profNameCn(primaryProf)
-			profEntry = (pvp) ? profEntry + " (竞赛版)" : profEntry
-			address = (pvp) ? "☛ [图示]("+address+"y?"+templateCode+")" : "☛ [图示]("+address+templateCode+")"				
-			
-		} else if ((args[0] && args[0].toLowerCase()=="en") || authorHasRole(message, "外文")){
+		if (displayLang == "en"){
 			
 			profEntry = (profNameEn(secondaryProf)) ? "Template: "+profNameEn(primaryProf) + " / " + profNameEn(secondaryProf) : "Template: "+profNameEn(primaryProf)			
 			profEntry = (pvp) ? profEntry + " (PvP)" : profEntry
 			address = (pvp) ? "☛ [iconView]("+address+"h?"+templateCode+")" : "☛ [iconView]("+address+"e?"+templateCode+")"						
+			
+		} else {			
+			
+			profEntry = (profNameCn(secondaryProf)) ? "技能编码: "+profNameCn(primaryProf) + " / " + profNameCn(secondaryProf) : "技能编码: "+profNameCn(primaryProf)
+			profEntry = (pvp) ? profEntry + " (竞赛版)" : profEntry
+			address = (pvp) ? "☛ [图示]("+address+"y?"+templateCode+")" : "☛ [图示]("+address+templateCode+")"				
 			
 		}
 		
