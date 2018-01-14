@@ -30,8 +30,10 @@ exports.run = (Discord, client, templateCode, message, args) => {
 				
 		if (args[0]) {
 			if (args.findIndex(entry => {
-				let temp = entry.splice((/ +/g))
+				let temp = entry.split((/ +/g))
+				console.log(temp)
 				return temp.findIndex(ele => {
+						console.log(ele)
 						return ele.trim().toLowerCase() == "en"					
 					})
 				})) displayLang = "en"			
