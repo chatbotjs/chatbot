@@ -3,6 +3,11 @@ exports.run = (Discord, client, templateCode, message, args) => {
 	templateCode = templateCode.slice(1)		
 	
 	let displayLang = "cn"
+	if (authorHasRole(message, "外文")) displayLang = "en"
+	if (authorHasRole(message, "中文")) displayLang = "cn"
+	if (argsLang(args, "en")) displayLang = "en"
+	if (argsLang(args, "cn")) displayLang = "cn"
+	
 	let pvp = false
 	let address = "https://guildwars.huijiwiki.com/wiki/j?"	
 	
@@ -27,18 +32,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		bin = bin.substr(6);
 		let primaryProf = binval(bin.substr(0, 4))
 		let secondaryProf = binval(bin.substr(4, 4))
-				
-		if (args[0]) {
-			if ((-1) != args.findIndex(entry => {
-				let temp = entry.split((/ +/g))				
-				return ((-1) != temp.findIndex(ele => {				
-						return ele.trim().toLowerCase() == "en"			
-					}))
-				})) {				
-				displayLang = "en"			
-			}			
-		}
-		
+											
 		if (displayLang == "en"){
 			
 			profEntry = (profNameEn(secondaryProf)) ? "Template: "+profNameEn(primaryProf) + " / " + profNameEn(secondaryProf) : "Template: "+profNameEn(primaryProf)			
@@ -52,13 +46,13 @@ exports.run = (Discord, client, templateCode, message, args) => {
 			address = (pvp) ? "☛ [图示]("+address+"y?"+templateCode+")" : "☛ [图示]("+address+templateCode+")"				
 			
 		}
-		
-		message.mentions.users.forEach(user => {mention += "<@!"+user.id+"> "})	
-		
+				
 		let embedTemplate = new Discord.RichEmbed()					
 			.setColor(getRandomColor()) //.setAuthor("Author Name", null, "https://")	
 			.setDescription(profEntry)
 			.addField("__"+templateCode+"__",address)				
+		
+		message.mentions.users.forEach(user => {mention += "<@!"+user.id+"> "})	
 		
 		let currentChannel = message.channel
 		message.delete()
@@ -130,6 +124,15 @@ function profNameEn(input){
 		default:
 			return null
 	}
+}
+
+function argsLang(args, lang){
+	return ((-1) != args.findIndex(entry => {
+				let temp = entry.split((/ +/g))				
+				return ((-1) != temp.findIndex(ele => {				
+						return ele.trim().toLowerCase() == lang
+					}))
+				}))
 }
 
 function authorHasRole(message, roleName){
