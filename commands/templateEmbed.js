@@ -29,9 +29,28 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		let secondaryProf = binval(bin.substr(4, 4))
 				
 		if (args[0]) {
+			console.log(args.findIndex(entry => {
+				let temp = entry.split((/ +/g))
+				console.log("temp : "+temp)
+				console.log(temp.findIndex(ele => {
+						console.log("ele : "+ele)
+						console.log(ele.trim().toLowerCase() == "en")
+						return ele.trim().toLowerCase() == "en"			
+					}))
+				return temp.findIndex(ele => {
+						console.log("ele : "+ele)
+						console.log(ele.trim().toLowerCase() == "en")
+						return ele.trim().toLowerCase() == "en"			
+					})
+				}))
 			if (args.findIndex(entry => {
 				let temp = entry.split((/ +/g))
 				console.log("temp : "+temp)
+				console.log(temp.findIndex(ele => {
+						console.log("ele : "+ele)
+						console.log(ele.trim().toLowerCase() == "en")
+						return ele.trim().toLowerCase() == "en"			
+					}))
 				return temp.findIndex(ele => {
 						console.log("ele : "+ele)
 						console.log(ele.trim().toLowerCase() == "en")
