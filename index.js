@@ -95,7 +95,7 @@ client.on('message', msg => {
 	if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
 		let templateCode = command
 		try {
-			let commandFile = require(__dirname + `/commands/templateEmbed.js`);
+			let commandFile = require(__dirname + `/commands/技能编码.js`);
 			commandFile.run(Discord, client, templateCode, msg, args);
 		} catch (err) {
 			console.error(err);
@@ -115,15 +115,13 @@ client.on('message', msg => {
 			output += recentAds[i].name + "\n"
 		}
 		debugLog(output)
-	} else {
-		/*
+	} else {		
 		try {
 			let commandFile = require(__dirname + `/commands/${command}.js`);
 			commandFile.run(client, mongoConnect, msg, args);
 		} catch (err) {
 			console.error(err);
-		}
-		*/
+		}		
 	}
 })
 
@@ -147,7 +145,7 @@ function cmdLookup(cmd){
 			break		
 		case "track+": case "track-": case "trackx": case "track":
 		case "报+": case "报-": case "报x": case "报": 
-			return "报"
+			return "广告提示"
 			break
 		default:
 			return cmd
