@@ -5,7 +5,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 	let displayLang = "cn"
 	if (authorHasRole(message, "外文")) displayLang = "en"
 	if (authorHasRole(message, "中文")) displayLang = "cn"
-	if (argsLang(args, "en")) displayLang = "en"
+	if (argsLang(args, "en") || argsLang(args, "外") || argsLang(args, "英") || argsLang(args, "外文") || argsLang(args, "英文")) displayLang = "en"
 	if (argsLang(args, "cn")) displayLang = "cn"
 	
 	let pvp = false
