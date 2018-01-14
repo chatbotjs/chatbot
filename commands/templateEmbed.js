@@ -30,10 +30,10 @@ exports.run = (Discord, client, templateCode, message, args) => {
 				
 		if (args[0]) {
 
-			if ((-1) == args.findIndex(entry => {
+			if ((-1) != args.findIndex(entry => {
 				let temp = entry.split((/ +/g))
 				console.log("temp : "+temp)				
-				return ((-1) == temp.findIndex(ele => {
+				return ((-1) != temp.findIndex(ele => {
 						console.log("ele : "+ele)
 						console.log(ele.trim().toLowerCase() == "en")
 						return ele.trim().toLowerCase() == "en"			
