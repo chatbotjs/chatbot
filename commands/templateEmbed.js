@@ -38,11 +38,12 @@ exports.run = (Discord, client, templateCode, message, args) => {
 						return ele.trim().toLowerCase() == "en"			
 					}))
 				return temp.findIndex(ele => {
-						console.log("ele : "+ele)
-						console.log(ele.trim().toLowerCase() == "en")
+						//console.log("ele : "+ele)
+						//console.log(ele.trim().toLowerCase() == "en")
 						return ele.trim().toLowerCase() == "en"			
 					})
 				}))
+				/*
 			if (args.findIndex(entry => {
 				let temp = entry.split((/ +/g))
 				console.log("temp : "+temp)
@@ -60,6 +61,7 @@ exports.run = (Discord, client, templateCode, message, args) => {
 				console.log("english detected")
 				displayLang = "en"			
 			}
+			*/
 		}
 		console.log("displayLang: "+displayLang)
 		if (displayLang == "en"){
