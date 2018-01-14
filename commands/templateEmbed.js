@@ -29,22 +29,16 @@ exports.run = (Discord, client, templateCode, message, args) => {
 		let secondaryProf = binval(bin.substr(4, 4))
 				
 		if (args[0]) {
-
 			if ((-1) != args.findIndex(entry => {
-				let temp = entry.split((/ +/g))
-				console.log("temp : "+temp)				
-				return ((-1) != temp.findIndex(ele => {
-						console.log("ele : "+ele)
-						console.log(ele.trim().toLowerCase() == "en")
+				let temp = entry.split((/ +/g))				
+				return ((-1) != temp.findIndex(ele => {				
 						return ele.trim().toLowerCase() == "en"			
 					}))
-				})) {
-				console.log("english detected")
+				})) {				
 				displayLang = "en"			
-			}
-			
+			}			
 		}
-		console.log("displayLang: "+displayLang)
+		
 		if (displayLang == "en"){
 			
 			profEntry = (profNameEn(secondaryProf)) ? "Template: "+profNameEn(primaryProf) + " / " + profNameEn(secondaryProf) : "Template: "+profNameEn(primaryProf)			
