@@ -11,8 +11,8 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 				mongoConnect.then(async function(client) {
 					let database = client.db("chatbotjs")
 					let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, {
-							{ $set: {name: msg.author.username} },
-							{ $addToSet: { notify: { $each: args } } }
+							$set: {name: msg.author.username},
+							$addToSet: { notify: { $each: args } } 
 						}, {
 						upsert: true
 					})
