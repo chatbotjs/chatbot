@@ -27,7 +27,14 @@ const bodyParser= require('body-parser')
 //heroku config:set mlabURI=mongodb://<dbuser>:<dbpassword>@ds147872.mlab.com:47872/chatbotjs -a chatbotjs (or other appname)
 //can use any other name besides mlabURI to store the URI
 const MongoClient = require('mongodb').MongoClient
-let mongoConnect = MongoClient.connect(process.env.mlabURI)
+let mongoConnect = MongoClient.connect(process.env.mlabURI, {
+        // retry to connect for 60 times
+        reconnectTries: Number.MAX_VALUE,
+        // wait 1 second before retrying
+        reconnectInterval: 1000, 
+		// if one requires immediate fail upon disconnect
+		bufferMaxEntries: 0
+    })
 
 //for discordbot====================================================================
 const Discord = require("discord.js");
@@ -75,23 +82,29 @@ client.on('message', msg => {
 	if (msg.author.bot) return;
 	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
 	
-	let args = msg.content.slice(1).trim().split(/\s*\;\s*/g);
+	let args = msg.content.slice(1).trim().split(/\s*[;；]\s*/g);
 	let command = ""
 	if (args[0].match(/ +/g)){
 		//the g flag below would alter the output format for match, and captured groups would be disgarded in that case
-		command = args[0].match(/([^ ]+) /)[1]
+		args[0] = args[0].replace(/(^[^\s]+)\s+(\+|\-|\~)/, "$1$2")
+		command = args[0].match(/([^\s]+)\s/)[1]
 		console.log("previous args: "+args)
 		console.log("previous args[0]: "+args[0])
-		args[0] = args[0].replace(/[^ ]+ +/, "")
+		args[0] = args[0].replace(/[^\s]+\s+/, "")
+		if (args[0]==""){
+			args.shift()
+		}
 		console.log("changed args[0]: "+args[0])
 	} else {
 		command = args.shift()
 	}		
+	args = args.filter(ele => (!(ele.match(/^\s*$/))))
 	
  	console.log("command: "+command)
 	console.log("args array: "+args)
 	console.log("args element 1: "+args[0])
 	
+	//stand-alone for case sensitivity
 	if ((command.indexOf("!") == 0) || (command.indexOf("！") == 0)) {
 		let templateCode = command
 		try {
@@ -103,6 +116,7 @@ client.on('message', msg => {
 		return
 	} 
 	
+	adMode = command.charAt(command.length-1)
 	command = cmdLookup(command.toLowerCase())
 		
 	if (command === '擦' && msg.author.id == selfAgent) {
@@ -115,10 +129,17 @@ client.on('message', msg => {
 			output += recentAds[i].name + "\n"
 		}
 		debugLog(output)
+	} else if (command === '广告提示') {
+		try {
+			let commandFile = require(__dirname + `/commands/广告提示.js`);
+			commandFile.run(client, mongoConnect, adMode, msg, args);
+		} catch (err) {
+			console.error(err);
+		}		
 	} else {		
 		try {
 			let commandFile = require(__dirname + `/commands/${command}.js`);
-			commandFile.run(client, mongoConnect, msg, args);
+			commandFile.run(client, msg, args);
 		} catch (err) {
 			console.error(err);
 		}		
@@ -143,8 +164,8 @@ function cmdLookup(cmd){
 		case "岗号": case "roleid":
 			return "岗号"
 			break		
-		case "track+": case "track-": case "trackx": case "track":
-		case "报+": case "报-": case "报x": case "报": 
+		case "track+": case "track-": case "track~": case "track":
+		case "报+": case "报-": case "报~": case "报": 
 			return "广告提示"
 			break
 		default:
