@@ -1,4 +1,4 @@
-exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
+exports.run =  (discordClient, mongoConnect, adMode, msg, args) => {
 	
 	console.log(adMode)
 	/*In traditional relational databases, associations (probably means relations) are used to relate data from one table to another. MongoDB and similar NoSQL databases are document-oriented (there are no tables), so relationships are drawn between document-objects instead.  SEE: ObjectID function*/
