@@ -7,7 +7,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		case "+":
 			if (args.length != 0){
 				mongoConnect.then(async function(client) {
-					let database = client.db("discord")
+					let database = client.db("chatbotjs")
 					let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, { $addToSet: { notify: { $each: args } } }, {
 						upsert: true
 					})
@@ -19,7 +19,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		case "-":
 			if (args.length != 0){
 				mongoConnect.then(async function(client) {	
-					let database = client.db("discord")
+					let database = client.db("chatbotjs")
 					let r = await database.collection("channelUsers").updateMany( {_id:msg.author.id}, { $pullAll: { notify: args } } )
 				}).catch(console.error)
 			} else {
@@ -28,13 +28,13 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 			break
 		case "~":
 			mongoConnect.then(async function(client) {	
-				let database = client.db("discord")
+				let database = client.db("chatbotjs")
 				let r = await database.collection("channelUsers").updateMany( {_id:msg.author.id}, { $set: { notify: [] } } )
 			}).catch(console.error)
 			break
 		default:		
 			mongoConnect.then(async function(client) {	
-				let database = client.db("discord")
+				let database = client.db("chatbotjs")
 				let r = await database.collection("channelUsers").find( {_id:msg.author.id}).project( { "notify": 1, _id: 0 } ).toArray()
 				console.log(r)
 			}).catch(console.error)
