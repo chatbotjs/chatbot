@@ -11,25 +11,28 @@ exports.run = async (client, mongoConnect, adMode, msg, args) => {
 						upsert: true
 					})
 				}).catch(console.error)
+			} else {
+				console.log("track+ no arguments")
 			}
 			break
 		case "-":
 			if (args.length != 0){
-				mongoConnect.then(function(database) {		
-					database.collection("channelUsers").updateMany( {_id:message.author.id}, { $pullAll: { notify: args } } )
+				mongoConnect.then(async function(database) {		
+					let r = await database.collection("channelUsers").updateMany( {_id:message.author.id}, { $pullAll: { notify: args } } )
 				}).catch(console.error)
+			} else {
+				console.log("track- no arguments")
 			}
 			break
 		case "~":
-			mongoConnect.then(function(database) {		
-				database.collection("channelUsers").updateMany( {_id:message.author.id}, { $set: { notify: [] } } )
+			mongoConnect.then(async function(database) {		
+				let r = await database.collection("channelUsers").updateMany( {_id:message.author.id}, { $set: { notify: [] } } )
 			}).catch(console.error)
 			break
 		default:		
-			mongoConnect.then(function(database) {		
-				database.collection("channelUsers").find( {_id:message.author.id}).project( { "notify": 1, _id: 0 } ).toArray(function(err, r) {
-					console.log(r)
-				})					
+			mongoConnect.then(async function(database) {		
+				let r = await database.collection("channelUsers").find( {_id:message.author.id}).project( { "notify": 1, _id: 0 } ).toArray()
+				console.log(r)
 			}).catch(console.error)
 	}	
 }
