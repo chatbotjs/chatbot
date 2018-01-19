@@ -10,7 +10,10 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 			if (args.length != 0){
 				mongoConnect.then(async function(client) {
 					let database = client.db("chatbotjs")
-					let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, { $addToSet: { notify: { $each: args } } }, {
+					let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, {
+							{ $set: {name: msg.author.username} },
+							{ $addToSet: { notify: { $each: args } } }
+						}, {
 						upsert: true
 					})
 				}).catch(console.error)
@@ -37,7 +40,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		default:		
 			mongoConnect.then(async function(client) {	
 				let database = client.db("chatbotjs")
-				let r = await database.collection("channelUsers").find( {_id:msg.author.id}).project( { "notify": 1, _id: 0 } )//.toArray()
+				let r = await database.collection("channelUsers").find( {_id:msg.author.id}).project( { "notify": 1, _id: 0 } ).toArray()
 				console.log(r)
 			}).catch(console.error)
 	}	
