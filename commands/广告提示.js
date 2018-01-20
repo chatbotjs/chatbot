@@ -16,6 +16,8 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		if (r.length > 0) {
 			msg.author.send("Currently tracking: "+r[0].notify.toString())
 			console.log("currently tracking")
+		} else {
+			
 		}
 	}).catch(console.error)	
 }
@@ -29,7 +31,7 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 					mongoConnect.then(async function(client) {
 						let database = client.db("chatbotjs")
 						let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, {
-								$set: {name: msg.author.username},
+								$set: {name: msg.author.tag},
 								$addToSet: { notify: { $each: args } } 
 							}, {
 							upsert: true
@@ -77,4 +79,10 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 		}
 		console.log("out promise")
 	})	
+}
+
+function authorHasRole(message, roleName){
+	//might be discordjs v11 specific
+	let modRole = message.guild.roles.find("name", roleName)
+    return (message.member.roles.has(modRole.id))
 }
