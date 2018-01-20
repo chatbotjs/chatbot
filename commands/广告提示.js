@@ -73,7 +73,7 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 				break
 			default:
 				console.log("default reached")
-				//resolve("done")
+				resolve("done")
 		}
 		console.log("out promise")
 	})	
