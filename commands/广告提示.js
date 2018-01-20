@@ -14,10 +14,10 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		let r = await database.collection("channelUsers").find( {_id:msg.author.id}).project( { "notify": 1, _id: 0 } ).toArray()
 		console.log(r)
 		if (r.length > 0) {
-			msg.author.send("Currently tracking: "+r[0].notify.toString())
+			msg.author.send("Status: tracking "+r[0].notify.toString())
 			console.log("currently tracking")
 		} else {
-			
+			msg.author.send("Status: not tracking")
 		}
 	}).catch(console.error)	
 }
