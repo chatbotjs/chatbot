@@ -5,44 +5,68 @@ exports.run =  (discordClient, mongoConnect, adMode, msg, args) => {
   	
 	//the db name is the one created on mlab, before creation of user
 	
-	switch(adMode){
-		case "+":
-			if (args.length != 0){
-				mongoConnect.then(async function(client) {
-					let database = client.db("chatbotjs")
-					let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, {
-							$set: {name: msg.author.username},
-							$addToSet: { notify: { $each: args } } 
-						}, {
-						upsert: true
-					})
-					msg.author.send("done inserting")
-				}).catch(console.error)
-			} else {
-				msg.channel.send("Missing argument")
-			}
-			break
-		case "-":
-			if (args.length != 0){
-				mongoConnect.then(async function(client) {	
-					let database = client.db("chatbotjs")
-					let r = await database.collection("channelUsers").updateMany( {_id:msg.author.id}, { $pullAll: { notify: args } } )
-				}).catch(console.error)
-			} else {
-				msg.channel.send("Missing argument")
-			}
-			break
-		case "~":
-			mongoConnect.then(async function(client) {	
-				let database = client.db("chatbotjs")
-				let r = await database.collection("channelUsers").updateMany( {_id:msg.author.id}, { $set: { notify: [] } } )
-			}).catch(console.error)
-			break
-	}
-		
+	let r = await dpOperation(discordClient, mongoConnect, adMode, msg, args)
+	msg.author.send("operation done")
+	
 	mongoConnect.then(async function(client) {	
 		let database = client.db("chatbotjs")
 		let r = await database.collection("channelUsers").find( {_id:msg.author.id}).project( { "notify": 1, _id: 0 } ).toArray()
+		console.log(r)
 		if (r.length > 0) msg.author.send("Currently tracking: "+r.toString())
 	}).catch(console.error)	
+}
+
+function dpOperation(discordClient, mongoConnect, adMode, msg, args){
+	return new Promise((resolve, reject)=>{
+		switch(adMode){
+			case "+":
+				if (args.length != 0){
+					mongoConnect.then(async function(client) {
+						let database = client.db("chatbotjs")
+						let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, {
+								$set: {name: msg.author.username},
+								$addToSet: { notify: { $each: args } } 
+							}, {
+							upsert: true
+						})
+						msg.author.send("done inserting")
+						resolve("done")
+					}).catch(err => {
+						console.log(err)
+						reject(err)
+					})
+				} else {
+					msg.channel.send("Missing argument")
+					resolve("done")
+				}
+				break
+			case "-":
+				if (args.length != 0){
+					mongoConnect.then(async function(client) {	
+						let database = client.db("chatbotjs")
+						let r = await database.collection("channelUsers").updateMany( {_id:msg.author.id}, { $pullAll: { notify: args } } )
+						resolve("done")
+					}).catch(err => {
+						console.log(err)
+						reject(err)
+					})
+				} else {
+					msg.channel.send("Missing argument")
+					resolve("done")
+				}
+				break
+			case "~":
+				mongoConnect.then(async function(client) {	
+					let database = client.db("chatbotjs")
+					let r = await database.collection("channelUsers").updateMany( {_id:msg.author.id}, { $set: { notify: [] } } )
+					resolve("done")
+				}).catch(err => {
+					console.log(err)
+					reject(err)
+				})
+				break
+			default:
+				resolve("done")
+		}
+	})	
 }
