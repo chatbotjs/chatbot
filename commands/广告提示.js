@@ -6,7 +6,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 	//the db name is the one created on mlab, before creation of user
 	
 	let r = await dpOperation(discordClient, mongoConnect, adMode, msg, args)
-	//console.log("out await, operation done")
+	console.log("out await, operation done")
 	msg.author.send("operation done")
 	
 	mongoConnect.then(async function(client) {	
@@ -35,7 +35,7 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 							upsert: true
 						})
 						msg.author.send("done inserting")
-						//console.log("done inserting, actually resolved")
+						console.log("done inserting, actually resolved")
 						resolve("done")
 					}).catch(err => {
 						console.log(err)
@@ -72,7 +72,8 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 				})
 				break
 			default:
-				resolve("done")
+				console.log("default reached")
+				//resolve("done")
 		}
 		console.log("out promise")
 	})	
