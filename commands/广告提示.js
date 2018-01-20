@@ -6,6 +6,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 	//the db name is the one created on mlab, before creation of user
 	
 	let r = await dpOperation(discordClient, mongoConnect, adMode, msg, args)
+	console.log("out await, operation done")
 	msg.author.send("operation done")
 	
 	mongoConnect.then(async function(client) {	
@@ -17,6 +18,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 }
 
 function dpOperation(discordClient, mongoConnect, adMode, msg, args){
+	console.log("in promise")
 	return new Promise((resolve, reject)=>{
 		switch(adMode){
 			case "+":
@@ -68,5 +70,6 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 			default:
 				resolve("done")
 		}
+		console.log("out promise")
 	})	
 }
