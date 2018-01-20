@@ -12,7 +12,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		let database = client.db("chatbotjs")
 		let r = await database.collection("channelUsers").find( {_id:msg.author.id}).project( { "notify": 1, _id: 0 } ).toArray()
 		console.log(r)
-		if (r.length > 0) msg.author.send("Currently tracking: "+r.toString())
+		if (r.length > 0) msg.author.send("Currently tracking: "+r[0].notify.toString())
 	}).catch(console.error)	
 }
 
