@@ -13,7 +13,10 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		let database = client.db("chatbotjs")
 		let r = await database.collection("channelUsers").find( {_id:msg.author.id}).project( { "notify": 1, _id: 0 } ).toArray()
 		console.log(r)
-		if (r.length > 0) msg.author.send("Currently tracking: "+r[0].notify.toString())
+		if (r.length > 0) {
+			msg.author.send("Currently tracking: "+r[0].notify.toString())
+			console.log("currently tracking")
+		}
 	}).catch(console.error)	
 }
 
@@ -32,6 +35,7 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 							upsert: true
 						})
 						msg.author.send("done inserting")
+						console.log("done inserting, actually resolved")
 						resolve("done")
 					}).catch(err => {
 						console.log(err)
