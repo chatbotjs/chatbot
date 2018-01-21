@@ -20,6 +20,15 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 			msg.author.send("Status: not tracking")
 		}
 	}).catch(console.error)	
+	
+	mongoConnect.then(async function(client){
+		let database = client.db("chatbotjs")
+		let r = await database.collection("channelUsers").aggregate([ 
+			{ $unwind: "$notify"},
+			{ $group: { _id: "$notify", audience: { $push : "_id" } } }
+		]).toArray()
+		console.log(r)
+	}).catch(console.error)
 }
 
 function dpOperation(discordClient, mongoConnect, adMode, msg, args){
@@ -31,11 +40,11 @@ function dpOperation(discordClient, mongoConnect, adMode, msg, args){
 					mongoConnect.then(async function(client) {
 						let database = client.db("chatbotjs")
 						let r = await database.collection("channelUsers").updateMany({_id:msg.author.id}, {
-								$set: {name: msg.author.tag},
-								$addToSet: { notify: { $each: args } } 
-							}, {
-							upsert: true
-						})
+									$set: {name: msg.author.tag},
+									$addToSet: { notify: { $each: args } } 
+								}, {
+									upsert: true
+								})
 						msg.author.send("done inserting")
 						console.log("done inserting, actually resolved")
 						resolve("done")
