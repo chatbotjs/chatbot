@@ -25,7 +25,7 @@ exports.run = async (discordClient, mongoConnect, adMode, msg, args) => {
 		let database = client.db("chatbotjs")
 		let r = await database.collection("channelUsers").aggregate([ 
 			{ $unwind: "$notify"},
-			{ $group: { _id: "$notify", audience: { $push : "_id" } } }
+			{ $group: { _id: "$notify", audience: { $push : "$_id" } } }
 		]).toArray()
 		console.log(r)
 	}).catch(console.error)
