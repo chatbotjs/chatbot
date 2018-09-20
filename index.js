@@ -67,8 +67,7 @@ client.on('ready', () => {
 	})
 })
 
-client.on("guildMemberAdd", (member) => {
-  console.log("测试")
+client.on("guildMemberAdd", (member) => {  
   console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
   if (member.id == offlineAgentS){
 	  if (!member.roles.find("name", "管理员")){
@@ -81,6 +80,7 @@ client.on("guildMemberAdd", (member) => {
 	  }
   }
   if (member.guild.id == "487837630952767498"){
+	  member.send("传送")
 	  member.setVoiceChannel("487837630952767502")
   }
 });
