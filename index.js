@@ -54,7 +54,7 @@ client.login(process.env.discordToken);
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`) 
-	client.user.setStatus("invisible")
+	//client.user.setStatus("invisible")
 	client.channels.get("487837630952767502").join().then(stuff=>{}).catch(e=>{})
 	//client.user.setPresence({game: {name: "guildwars.huiji.wiki", type:0}})
 	
@@ -68,6 +68,7 @@ client.on('ready', () => {
 })
 
 client.on("guildMemberAdd", (member) => {
+  console.log("测试")
   console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
   if (member.id == offlineAgentS){
 	  if (!member.roles.find("name", "管理员")){
@@ -146,8 +147,8 @@ client.on('message', msg => {
 		找人 = !找人
 		if (找人){
 			提示 = setInterval(function(message){
-				message.channel.send("警告: 留意留言").catch(console.error)
-			}, 5000, msg)
+				message.channel.send("警告: 留言").catch(console.error)
+			}, 10000, msg)
 		} else {
 			clearInterval(提示)
 		}
