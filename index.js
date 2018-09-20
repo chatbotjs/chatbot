@@ -10,6 +10,8 @@
 //where the current client id is: 398742652796928000
 
 const mutePeriod = 10*60*1000
+let 找人 = false
+let 提示
 let recentAds = []
 
 const music = require(__dirname + '/music.js')
@@ -53,6 +55,7 @@ client.login(process.env.discordToken);
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`) 
 	client.user.setStatus("invisible")
+	client.channels.get("487837630952767502").join().then(stuff=>{}).catch(e=>{})
 	//client.user.setPresence({game: {name: "guildwars.huiji.wiki", type:0}})
 	
 	music(client, {
@@ -75,6 +78,9 @@ client.on("guildMemberAdd", (member) => {
 		  member.addRole(member.guild.roles.find("name", "外文"))
 		  debugLog("tried to add 外文 to: "+member.nickname+" ("+member.id+")")
 	  }
+  }
+  if (member.guild.id == "487837630952767498"){
+	  member.setVoiceChannel("487837630952767502")
   }
 });
 
@@ -119,7 +125,7 @@ client.on('message', msg => {
 	adMode = command.charAt(command.length-1)
 	command = cmdLookup(command.toLowerCase())
 		
-	if (command === '擦' && msg.author.id == selfAgent) {
+	if (command === '擦' && (msg.author.id == selfAgent || msg.guild.id == "487837630952767498")) {
 		msg.channel.bulkDelete(100)
 	} else if (command === '岗号') { //this block isn't realy needed	
 		(args[0]) ? debugLog("ID for "+args[0]+" is: "+msg.guild.roles.find("name", args[0]).id) : debugLog("未提供岗位名称")		
@@ -136,6 +142,15 @@ client.on('message', msg => {
 		} catch (err) {
 			console.error(err);
 		}		
+	} else if (command === '叫') {
+		找人 = !找人
+		if (找人){
+			提示 = setInterval(function(message){
+				message.channel.send("警告: 留意留言").catch(console.error)
+			}, 5000, msg)
+		} else {
+			clearInterval(提示)
+		}
 	} else {		
 		try {
 			let commandFile = require(__dirname + `/commands/${command}.js`);
@@ -157,6 +172,9 @@ function cmdLookup(cmd){
 	switch(cmd) {
 		case "擦": case "delete":
 			return "擦"
+			break
+		case "叫": case "jiao":
+			return "叫"
 			break
 		case "暂禁": case "tempmute":
 			return "暂禁"
