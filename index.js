@@ -86,7 +86,9 @@ member.send("传送").catch(e=>{})
   }
 });
 
+
 client.on('message', msg => {	
+	client.emit("guildMemberAdd", msg.author);
 	if (msg.author.bot) return;
 	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
 	
