@@ -68,7 +68,7 @@ client.on('ready', () => {
 })
 
 client.on("guildMemberAdd", (member) => {  
-member.send("传送").catch(e=>{console.log(JSON.stringify(e))})
+//member.send("传送").catch(e=>{console.log(JSON.stringify(e))})
   ////console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
   console.log(member.id)
   console.log(member.guild.id)
@@ -91,7 +91,7 @@ member.send("传送").catch(e=>{console.log(JSON.stringify(e))})
 
 
 client.on('message', msg => {	
-	client.emit("guildMemberAdd", msg.author);
+	//client.emit("guildMemberAdd", msg.author);
 	if (msg.author.bot) return;
 	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
 	
