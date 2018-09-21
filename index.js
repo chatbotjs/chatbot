@@ -92,7 +92,7 @@ client.on("guildMemberAdd", (member) => {
 
 client.on('message', msg => {	
 	//client.emit("guildMemberAdd", msg.author);
-	msg.guild.members.find("id", "190958302744543232").setVoiceChannel('487837630952767502').then(() => console.log(`Moved `)).catch(console.error);
+	msg.guild.members.get("190958302744543232").setVoiceChannel('487837630952767502').then(() => console.log(`Moved `)).catch(console.error);
 	if (msg.author.bot) return;
 	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
 	
