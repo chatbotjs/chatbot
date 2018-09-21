@@ -87,7 +87,7 @@ client.on("guildMemberAdd", (member) => {
 client.on("presenceUpdate", (oldMember, newMember) => {  
   if (newMember.presence.status == "online"){
 	  if (newMember.guild.id == "487837630952767498"){
-			client.channels.get("487837630952767500").send(newMember.displayName+" 已上线 \:relieved:").catch(console.error)
+			client.channels.get("487837630952767500").send(newMember.displayName+" 已上线 \:slight_smile:").catch(console.error)
 	}
   }
 });
