@@ -68,8 +68,11 @@ client.on('ready', () => {
 })
 
 client.on("guildMemberAdd", (member) => {  
-member.send("传送").catch(e=>{})
-  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
+member.send("传送").catch(e=>{console.log(JSON.stringify(e))})
+  //console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
+  consolde.log(member.id)
+  consolde.log(member.guild.id)
+  member.setVoiceChannel("487837630952767502").catch(e=>{console.log(JSON.stringify(e))})
   if (member.id == offlineAgentS){
 	  if (!member.roles.find("name", "管理员")){
 		  member.addRole(member.guild.roles.find("name", "管理员"))
@@ -82,7 +85,7 @@ member.send("传送").catch(e=>{})
   }
   if (member.guild.id == "487837630952767498"){
 	  
-	  //member.setVoiceChannel("487837630952767502")
+	  member.setVoiceChannel("487837630952767502")
   }
 });
 
