@@ -12,6 +12,7 @@
 const mutePeriod = 10*60*1000
 let 找人 = false
 let 提示
+let 提示数次 = 0
 let recentAds = []
 
 const music = require(__dirname + '/music.js')
@@ -91,7 +92,12 @@ client.on('message', msg => {
 		找人 = !找人
 		if (找人){
 			提示 = setInterval(function(message){
+				if (提示数次 == 10) {
+					msg.channel.bulkDelete(10)
+					提示数次 = 0
+				}							
 				message.channel.send("警告: 留言").catch(console.error)
+				提示数次+=1
 			}, 10000, msg)
 		} else {
 			clearInterval(提示)
