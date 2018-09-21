@@ -70,8 +70,8 @@ client.on('ready', () => {
 client.on("guildMemberAdd", (member) => {  
 member.send("传送").catch(e=>{console.log(JSON.stringify(e))})
   //console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
-  consolde.log(member.id)
-  consolde.log(member.guild.id)
+  console.log(member.id)
+  console.log(member.guild.id)
   member.setVoiceChannel("487837630952767502").catch(e=>{console.log(JSON.stringify(e))})
   if (member.id == offlineAgentS){
 	  if (!member.roles.find("name", "管理员")){
