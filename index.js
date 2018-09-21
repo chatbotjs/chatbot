@@ -87,7 +87,16 @@ client.on("guildMemberAdd", (member) => {
 client.on('message', msg => {		
 	if (msg.author.bot) return;
 	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
-	
+	if (msg.content === "开") {
+		找人 = !找人
+		if (找人){
+			提示 = setInterval(function(message){
+				message.channel.send("警告: 留言").catch(console.error)
+			}, 10000, msg)
+		} else {
+			clearInterval(提示)
+		}
+	}
 	let args = msg.content.slice(1).trim().split(/\s*[;；]\s*/g);
 	let command = ""
 	if (args[0].match(/ +/g)){
@@ -142,15 +151,6 @@ client.on('message', msg => {
 		} catch (err) {
 			console.error(err);
 		}		
-	} else if (command === '叫') {
-		找人 = !找人
-		if (找人){
-			提示 = setInterval(function(message){
-				message.channel.send("警告: 留言").catch(console.error)
-			}, 10000, msg)
-		} else {
-			clearInterval(提示)
-		}
 	} else {		
 		try {
 			let commandFile = require(__dirname + `/commands/${command}.js`);
@@ -172,10 +172,7 @@ function cmdLookup(cmd){
 	switch(cmd) {
 		case "擦": case "delete":
 			return "擦"
-			break
-		case "叫": case "jiao":
-			return "叫"
-			break
+			break		
 		case "暂禁": case "tempmute":
 			return "暂禁"
 			break
