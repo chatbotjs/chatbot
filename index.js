@@ -86,7 +86,7 @@ client.on("guildMemberAdd", (member) => {
 
 client.on('message', msg => {		
 	if (msg.author.bot) return;
-	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
+	
 	if (msg.content === "开") {
 		找人 = !找人
 		if (找人){
@@ -97,6 +97,9 @@ client.on('message', msg => {
 			clearInterval(提示)
 		}
 	}
+	
+	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
+	
 	let args = msg.content.slice(1).trim().split(/\s*[;；]\s*/g);
 	let command = ""
 	if (args[0].match(/ +/g)){
