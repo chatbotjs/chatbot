@@ -223,9 +223,9 @@ wss.on('message', function incoming(msg) {
 	let embedAdCn = new Discord.RichEmbed()
 		.setColor(0) //.setAuthor("Author Name", null, "https://")		
 		.setTitle(msg.name)
-		.setURL('https://kamadan.decltype.org/search/author%3A"'+encodeURIComponent(msg.name)+'"')
+		.setURL('https://huiji-baike.github.io/广告?search/author%3A"'+encodeURIComponent(msg.name)+'"')
 		.setDescription(cnTime)		
-		.addField(prettyPrintCn(msg.message),"[➻](https://kamadan.decltype.org)")
+		.addField(prettyPrintCn(msg.message),"[➻](https://huiji-baike.github.io/广告)")
 		
 	let embedAdEn = new Discord.RichEmbed()
 		.setColor(0) //.setAuthor("Author Name", null, "https://")		
