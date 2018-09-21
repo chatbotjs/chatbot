@@ -149,7 +149,7 @@ client.on('message', msg => {
 	
 	adMode = command.charAt(command.length-1)
 	command = cmdLookup(command.toLowerCase())
-		
+	console.log(msg.guild.id)
 	if (command === '擦' && (msg.author.id == selfAgent || msg.guild.id == "487837630952767498")) {
 		msg.channel.bulkDelete(100)
 	} else if (command === '岗号') { //this block isn't realy needed	
