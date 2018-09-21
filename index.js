@@ -216,7 +216,7 @@ const wss = new WebSocket('wss://kamadan.decltype.org/ws/notify');
 wss.on('open', function open() {
 	console.log("websocket connected")
 })
-
+/*
 wss.on('message', function incoming(msg) {
 	msg = JSON.parse(msg); 
 	let tmp = new Date()
@@ -250,7 +250,7 @@ wss.on('message', function incoming(msg) {
 	}
 	
 })
-
+*/
 function isEntryUnique(data) {
     recentAds = recentAds.filter(isRecent)
     for (let i = 0; i < recentAds.length; i++) {
