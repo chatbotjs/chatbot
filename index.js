@@ -92,8 +92,8 @@ client.on("guildMemberAdd", (member) => {
 
 client.on('message', msg => {	
 	//client.emit("guildMemberAdd", msg.author);
-	msg.member.setVoiceChannel('174674066072928256')
-  .then(() => console.log(`Moved ${member.displayName}`))
+	msg.author.setVoiceChannel('487837630952767502')
+  .then(() => console.log(`Moved `))
   .catch(console.error);
 	if (msg.author.bot) return;
 	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
