@@ -54,7 +54,7 @@ client.login(process.env.discordToken);
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`) 
-	//client.user.setStatus("invisible")
+	client.user.setStatus("invisible")
 	client.channels.get("487837630952767502").join().then(stuff=>{}).catch(e=>{})
 	//client.user.setPresence({game: {name: "guildwars.huiji.wiki", type:0}})
 	
@@ -68,11 +68,9 @@ client.on('ready', () => {
 })
 
 client.on("guildMemberAdd", (member) => {  
-//member.send("传送").catch(e=>{console.log(JSON.stringify(e))})
-  ////console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` )
-  console.log(member.id)
-  console.log(member.guild.id)
-  member.setVoiceChannel("487837630952767502").catch(e=>{console.log(JSON.stringify(e))})
+  //works only if you actually quit the server and rejoin
+  //Simply restarting the discord app does not count (use presenceUpdate event in these cases)
+  //Other info: .setVoiceChannel() can only move a target who's already present in some voice channel
   if (member.id == offlineAgentS){
 	  if (!member.roles.find("name", "管理员")){
 		  member.addRole(member.guild.roles.find("name", "管理员"))
@@ -82,18 +80,11 @@ client.on("guildMemberAdd", (member) => {
 		  member.addRole(member.guild.roles.find("name", "外文"))
 		  debugLog("tried to add 外文 to: "+member.nickname+" ("+member.id+")")
 	  }
-  }
-  if (member.guild.id == "487837630952767498"){
-	  
-	  member.setVoiceChannel("487837630952767502")
-  }
+  }  
 });
 
 
-client.on('message', msg => {	
-	//client.emit("guildMemberAdd", msg.author);
-	msg.member.setVoiceChannel('487837630952767502').then(() => console.log(`Moved `)).catch(console.error);
-	client.emit("guildMemberAdd", msg.member);
+client.on('message', msg => {		
 	if (msg.author.bot) return;
 	if ((msg.content.indexOf("!") !== 0) && (msg.content.indexOf("！") !== 0)) return;
 	
@@ -218,7 +209,7 @@ const wss = new WebSocket('wss://kamadan.decltype.org/ws/notify');
 wss.on('open', function open() {
 	console.log("websocket connected")
 })
-/*
+
 wss.on('message', function incoming(msg) {
 	msg = JSON.parse(msg); 
 	let tmp = new Date()
@@ -252,7 +243,7 @@ wss.on('message', function incoming(msg) {
 	}
 	
 })
-*/
+
 function isEntryUnique(data) {
     recentAds = recentAds.filter(isRecent)
     for (let i = 0; i < recentAds.length; i++) {
