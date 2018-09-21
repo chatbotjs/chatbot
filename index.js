@@ -54,7 +54,7 @@ client.login(process.env.discordToken);
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`) 
-	client.user.setStatus("invisible")
+	//client.user.setStatus("invisible")
 	client.channels.get("487837630952767502").join().then(stuff=>{}).catch(e=>{})
 	//client.user.setPresence({game: {name: "guildwars.huiji.wiki", type:0}})
 	
