@@ -84,11 +84,18 @@ client.on("guildMemberAdd", (member) => {
   }  
 });
 
+client.on("presenceUpdate", (oldMember, newMember) => {  
+  if (newMember.presence.status == "online"){
+	  if (newMember.guild.id == "487837630952767498"){
+			client.channels.get("487837630952767500").send(newMember.displayName+" 已上线 :)").catch(console.error)
+	}
+  }
+});
 
 client.on('message', msg => {		
 	if (msg.author.bot) return;
 	
-	if (msg.content === "开") {
+	if (msg.content === "开" && msg.guild.id == "487837630952767498") {
 		找人 = !找人
 		if (找人){
 			提示 = setInterval(function(message){
