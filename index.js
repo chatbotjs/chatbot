@@ -87,7 +87,7 @@ client.on("guildMemberAdd", (member) => {
 client.on("presenceUpdate", (oldMember, newMember) => {  
   if ((oldMember.presence.status == "offline") && (newMember.presence.status == "online")){
 	  if (newMember.guild.id == "487837630952767498"){
-			client.channels.get("487837630952767500").send(newMember.displayName+" 已上线 \:slight_smile:").then(msg=>{msg.delete()}).catch(console.error)
+			client.channels.get("487837630952767500").send(newMember.displayName+" 已上线").then(msg=>{msg.delete()}).catch(console.error)
 	}
   }
 });
@@ -95,7 +95,7 @@ client.on("presenceUpdate", (oldMember, newMember) => {
 client.on('message', msg => {		
 	if (msg.author.bot) return;
 	
-	if (msg.content === "开" && msg.guild.id == "487837630952767498") {
+	if (((msg.content === "开") || (msg.content === "kai")) && msg.guild.id == "487837630952767498") {
 		找人 = !找人
 		if (找人){
 			提示 = setInterval(function(message){
