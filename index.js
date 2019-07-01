@@ -86,7 +86,7 @@ client.on("guildMemberAdd", (member) => {
 
 client.on("presenceUpdate", (oldMember, newMember) => {  
   if ((oldMember.presence.status == "offline") && (newMember.presence.status == "online")){
-	  if (newMember.guild.id == "487837630952767498"){
+	  if ((newMember.guild.id == "487837630952767498") && (newMember.id!=selfAgent)){
 			client.channels.get("487837630952767500").send(newMember.displayName+" 已上线").then(msg=>{msg.delete()}).catch(console.error)
 	}
   }
